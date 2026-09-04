@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f1115;
-            --card-bg: #181a20;
-            --accent: #ffb703;
-            --text-main: #ffffff;
-            --text-sub: #9ea3b0;
-            --border: #262933;
+            --bg-color: #fff3db;
+            --card-bg: #ffffff;
+            --card-border: #ebd9b4;
+            --accent: #d97706;
+            --accent-bg: #fef3c7;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
         }
 
         * {
@@ -27,54 +28,79 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
         }
 
         /* Header */
         .header {
             text-align: center;
-            padding: 25px 20px 15px;
-            background: linear-gradient(180deg, #1f222e 0%, var(--bg-color) 100%);
-            border-bottom: 1px solid var(--border);
+            padding: 30px 20px 20px;
+            background: linear-gradient(180deg, #ffe8bf 0%, var(--bg-color) 100%);
+            border-bottom: 1px solid var(--card-border);
             position: relative;
         }
 
+        .logo-box {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         .header h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            color: var(--accent);
+            color: var(--text-main);
             letter-spacing: 1px;
-            text-transform: uppercase;
+        }
+
+        .header h1 span {
+            color: var(--accent);
         }
 
         .header p {
             color: var(--text-sub);
             font-size: 12px;
-            margin-top: 2px;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
-        /* Top Bar / Navigation */
+        /* Top Bar */
         .top-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 20px;
-            background-color: var(--card-bg);
-            border-bottom: 1px solid var(--border);
+            padding: 14px 20px;
+            background-color: rgba(255, 243, 219, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 90;
         }
 
         .back-btn {
-            background-color: rgba(255, 183, 3, 0.15);
+            background: var(--accent-bg);
             color: var(--accent);
-            border: 1px solid rgba(255, 183, 3, 0.3);
+            border: 1px solid rgba(217, 119, 6, 0.3);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
         }
 
         .current-cat-title {
@@ -83,31 +109,44 @@
             color: var(--text-main);
         }
 
-        /* Main Container */
+        /* Container */
         .container {
             padding: 20px;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        /* 1. KATEGORİ LİSTESİ (ANA SAYFA) */
+        /* Category Grid */
         .category-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 14px;
         }
 
         .category-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 22px;
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: var(--accent);
+            border-radius: 4px 0 0 4px;
         }
 
         .category-card:active {
@@ -115,19 +154,36 @@
             border-color: var(--accent);
         }
 
-        .category-card h3 {
+        .cat-info h3 {
             font-size: 18px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .category-card .arrow {
-            font-size: 20px;
+        .cat-count {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .arrow-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--accent-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--accent);
+            font-size: 18px;
             font-weight: bold;
         }
 
-        /* 2. ÜRÜN LİSTESİ (KATEGORİ İÇİ) */
+        /* Item Cards */
         .item-list {
             display: flex;
             flex-direction: column;
@@ -136,19 +192,29 @@
 
         .item-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: border 0.2s;
         }
 
         .item-card:active {
             border-color: var(--accent);
+        }
+
+        .item-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: #f3f4f6;
+            flex-shrink: 0;
         }
 
         .item-info {
@@ -158,7 +224,7 @@
         .item-title {
             font-size: 15px;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-main);
             margin-bottom: 4px;
         }
 
@@ -177,20 +243,17 @@
             font-weight: 800;
             color: var(--accent);
             white-space: nowrap;
-            background: rgba(255, 183, 3, 0.1);
+            background: var(--accent-bg);
             padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 183, 3, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(217, 119, 6, 0.2);
         }
 
-        /* 3. ÜRÜN DETAY MODAL (POPUP) */
+        /* Modal / Popup */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
@@ -199,13 +262,14 @@
         }
 
         .modal-card {
-            background-color: var(--card-bg);
-            border-top: 2px solid var(--accent);
-            border-radius: 20px 20px 0 0;
+            background-color: #ffffff;
+            border-top: 3px solid var(--accent);
+            border-radius: 24px 24px 0 0;
             padding: 25px;
             width: 100%;
             max-width: 500px;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
+            max-height: 85vh;
+            overflow-y: auto;
             animation: slideUp 0.25s ease-out;
         }
 
@@ -214,17 +278,26 @@
             to { transform: translateY(0); }
         }
 
+        .modal-img {
+            width: 100%;
+            height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 16px;
+            display: none;
+        }
+
         .modal-title {
             font-size: 20px;
             font-weight: 800;
-            color: #fff;
+            color: var(--text-main);
             margin-bottom: 8px;
         }
 
         .modal-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-sub);
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 20px;
         }
 
@@ -233,21 +306,34 @@
             font-weight: 800;
             color: var(--accent);
             margin-bottom: 20px;
+            display: inline-block;
+            background: var(--accent-bg);
+            padding: 6px 16px;
+            border-radius: 12px;
         }
 
         .close-btn {
             width: 100%;
             background-color: var(--accent);
-            color: #000;
+            color: #ffffff;
             border: none;
             padding: 14px;
-            border-radius: 12px;
-            font-weight: 700;
+            border-radius: 14px;
+            font-weight: 800;
             font-size: 15px;
             cursor: pointer;
         }
 
-        /* Loading */
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px 10px;
+            color: var(--text-sub);
+            font-size: 12px;
+            border-top: 1px solid var(--card-border);
+            margin-top: 30px;
+        }
+
         #loading {
             text-align: center;
             padding: 50px 20px;
@@ -255,27 +341,28 @@
             font-size: 14px;
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <!-- Header -->
     <div class="header">
-        <h1>BUN&FUN BURGER</h1>
-        <p>Lezzetin Adresi • Dijital Menü</p>
+        <div class="logo-box">
+            <img src="https://i.ibb.co/Lhb4G4n/bunandfun-logo-cream.png" alt="BUN&FUN BURGER Logo">
+        </div>
+        <h1>BUN<span>&</span>FUN BURGER</h1>
+        <p>Gourmet Burger & More • Dijital Menü</p>
     </div>
 
-    <!-- Üst Bar (Kategori İçindeyken Çıkar) -->
+    <!-- Üst Bar -->
     <div id="topBar" class="top-bar hidden">
         <button class="back-btn" onclick="showCategories()">← Kategoriler</button>
         <span class="current-cat-title" id="currentCatTitle"></span>
     </div>
 
     <div class="container">
-        <div id="loading">Menü yükleniyor...</div>
+        <div id="loading">Menü lezzetleri yükleniyor...</div>
 
         <!-- 1. Ekran: Kategori Listesi -->
         <div id="categoryView" class="category-grid hidden"></div>
@@ -284,9 +371,15 @@
         <div id="productView" class="item-list hidden"></div>
     </div>
 
-    <!-- 3. Ekran: Ürün Detay Popup -->
+    <!-- Footer -->
+    <div class="footer">
+        <p>© BUN&FUN BURGER • Keyifli Yemekler Dileriz!</p>
+    </div>
+
+    <!-- Ürün Detay Modal (Popup) -->
     <div id="productModal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-card">
+            <img id="modalImg" class="modal-img" src="" alt="">
             <div class="modal-title" id="modalTitle"></div>
             <div class="modal-desc" id="modalDesc"></div>
             <div class="modal-price" id="modalPrice"></div>
@@ -298,6 +391,17 @@
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
 
         let menuData = [];
+
+        function getCategoryIcon(catName) {
+            const name = catName.toLowerCase();
+            if (name.includes('burger')) return '🍔';
+            if (name.includes('i̇çecek') || name.includes('icecek') || name.includes('drınk')) return '🥤';
+            if (name.includes('patates') || name.includes('atıştırmalık') || name.includes('snack')) return '🍟';
+            if (name.includes('tatlı') || name.includes('dessert')) return '🍰';
+            if (name.includes('sos')) return '🧀';
+            if (name.includes('menü') || name.includes('menu')) return '🍱';
+            return '🍽️';
+        }
 
         function parseCSV(text) {
             const lines = text.split('\n');
@@ -326,9 +430,10 @@
                     const desc = row[2] || '';
                     const price = row[3] || '';
                     const status = row[4] || 'Satışta';
+                    const image = row[5] || '';
 
                     if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
-                        menuData.push({ category, name, desc, price });
+                        menuData.push({ category, name, desc, price, image });
                     }
                 });
 
@@ -340,7 +445,6 @@
             }
         }
 
-        // 1. KATEGORİLERİ GÖSTER (ANA SAYFA)
         function showCategories() {
             document.getElementById('topBar').classList.add('hidden');
             document.getElementById('productView').classList.add('hidden');
@@ -352,18 +456,23 @@
             const categories = [...new Set(menuData.map(item => item.category))].filter(Boolean);
 
             categories.forEach(cat => {
+                const itemCount = menuData.filter(item => item.category === cat).length;
+                const icon = getCategoryIcon(cat);
+
                 const card = document.createElement('div');
                 card.className = 'category-card';
                 card.onclick = () => showProducts(cat);
                 card.innerHTML = `
-                    <h3>🍔 ${cat}</h3>
-                    <span class="arrow">›</span>
+                    <div class="cat-info">
+                        <h3><span>${icon}</span> ${cat}</h3>
+                        <div class="cat-count">${itemCount} Seçenek</div>
+                    </div>
+                    <div class="arrow-badge">›</div>
                 `;
                 categoryView.appendChild(card);
             });
         }
 
-        // 2. KATEGORİ İÇİNDEKİ ÜRÜNLERİ GÖSTER
         function showProducts(categoryName) {
             document.getElementById('categoryView').classList.add('hidden');
             
@@ -381,7 +490,11 @@
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.onclick = () => openModal(item);
+                
+                const imgHtml = item.image ? `<img src="${item.image}" class="item-img" alt="${item.name}">` : '';
+
                 card.innerHTML = `
+                    ${imgHtml}
                     <div class="item-info">
                         <div class="item-title">${item.name}</div>
                         <div class="item-desc">${item.desc}</div>
@@ -392,11 +505,19 @@
             });
         }
 
-        // 3. ÜRÜN DETAY MODALINI AÇ
         function openModal(item) {
             document.getElementById('modalTitle').textContent = item.name;
-            document.getElementById('modalDesc').textContent = item.desc || 'Bu ürün için açıklama bulunmuyor.';
+            document.getElementById('modalDesc').textContent = item.desc || 'Bu ürün için detaylı açıklama bulunmamaktadır.';
             document.getElementById('modalPrice').textContent = item.price + ' ₺';
+            
+            const modalImg = document.getElementById('modalImg');
+            if (item.image) {
+                modalImg.src = item.image;
+                modalImg.style.display = 'block';
+            } else {
+                modalImg.style.display = 'none';
+            }
+
             document.getElementById('productModal').style.display = 'flex';
         }
 

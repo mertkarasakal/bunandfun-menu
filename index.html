@@ -8,10 +8,9 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* ÖZEL TEMA RENKLERİ: KREM ZEMİN (#fff3db) & KOYU YEŞİL VE ALTIN DETAYLAR */
     body {
       font-family: 'Poppins', sans-serif;
-      background: #fff3db; /* İstediğiniz Açık Zemin Rengi */
+      background: #fff3db;
       color: #1a221f;
       min-height: 100vh;
       padding-bottom: 40px;
@@ -44,7 +43,7 @@
       text-transform: lowercase;
     }
 
-    /* ÜST MİNİ BAR (Kategori ve Ürün Sayfalarında) */
+    /* ÜST MİNİ BAR */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -206,12 +205,11 @@
       <div id="products-list"></div>
     </section>
 
-    <div id="status-msg" class="status-msg hidden">Menü Yükleniyor...</div>
+    <div id="status-msg" class="status-msg hidden">Yükleniyor...</div>
 
   </main>
 
   <script>
-    // GOOGLE SHEETS CSV LİNKİ EKLENDİ
     const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
 
     let currentLang = 'TR';
@@ -249,7 +247,6 @@
       }
     }
 
-    /* AKIŞ VE DİL YÖNETİMİ */
     function selectInitialLanguage(lang) {
       currentLang = lang;
       updateMiniLangButtons();
@@ -272,7 +269,6 @@
       if(activeBtn) activeBtn.classList.add('active');
     }
 
-    /* EKRAN GEÇİŞLERİ */
     function showCategoriesScreen() {
       currentView = 'categories';
       document.getElementById('screen-welcome').classList.add('hidden');
@@ -317,30 +313,40 @@
       return '← Kategoriler';
     }
 
-    /* RENDER İŞLEMLERİ */
+    function getVal(row, index) {
+      return (row && row[index] !== undefined && row[index] !== null) ? row[index].trim() : '';
+    }
+
+    /* GÜVENLİ VERİ OKUMA MANTIKLARI */
     function getProcessedData() {
       const categoriesMap = {};
 
       rawRows.forEach(row => {
-        const status = row[4] || '';
+        const status = getVal(row, 4);
         if (status.toLowerCase().includes('satışta')) {
-          let cat = row[0] || '';
-          let name = row[1] || '';
-          let desc = row[2] || '';
-          let price = row[3] || '';
+          let catTR = getVal(row, 0);
+          let nameTR = getVal(row, 1);
+          let descTR = getVal(row, 2);
+          let price = getVal(row, 3);
+
+          let cat = catTR;
+          let name = nameTR;
+          let desc = descTR;
 
           if (currentLang === 'EN') {
-            cat = row[6] || cat;
-            name = row[7] || name;
-            desc = row[8] || desc;
+            cat = getVal(row, 6) || catTR;
+            name = getVal(row, 7) || nameTR;
+            desc = getVal(row, 8) || descTR;
           } else if (currentLang === 'RU') {
-            cat = row[9] || cat;
-            name = row[10] || name;
-            desc = row[11] || desc;
+            cat = getVal(row, 9) || catTR;
+            name = getVal(row, 10) || nameTR;
+            desc = getVal(row, 11) || descTR;
           }
 
-          if (!categoriesMap[cat]) categoriesMap[cat] = [];
-          categoriesMap[cat].push({ name, desc, price });
+          if (cat) {
+            if (!categoriesMap[cat]) categoriesMap[cat] = [];
+            categoriesMap[cat].push({ name, desc, price });
+          }
         }
       });
       return categoriesMap;
@@ -351,7 +357,14 @@
       container.innerHTML = '';
       const data = getProcessedData();
 
-      Object.keys(data).forEach(catName => {
+      const catKeys = Object.keys(data);
+
+      if (catKeys.length === 0) {
+        container.innerHTML = '<div class="status-msg">Bu dilde kategori bulunamadı.</div>';
+        return;
+      }
+
+      catKeys.forEach(catName => {
         const card = document.createElement('div');
         card.className = 'category-card';
         card.onclick = () => showProductsScreen(catName);
@@ -391,7 +404,6 @@
       statusDiv.classList.remove('hidden');
     }
 
-    // Menüyü yükle
     fetchMenu();
   </script>
 </body>

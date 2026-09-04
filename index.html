@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUN&FUN BURGER - Dijital Menü</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #181a20;
+            --accent: #ffb703;
+            --text-main: #ffffff;
+            --text-sub: #9ea3b0;
+            --border: #262933;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        /* Header / Banner */
+        .header {
+            text-align: center;
+            padding: 30px 20px 20px;
+            background: linear-gradient(180deg, #1f222e 0%, var(--bg-color) 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* Categories Bar */
+        .category-nav {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            background-color: rgba(15, 17, 21, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .cat-btn.active {
+            background-color: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        /* Container */
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+
+        /* Item Card */
+        .item-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        .item-price {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            white-space: nowrap;
+            background: rgba(255, 183, 3, 0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 183, 3, 0.2);
+        }
+
+        /* Loading */
+        #loading {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>BUN&FUN BURGER</h1>
+        <p>Lezzetin Adresi • Dijital Menü</p>
+    </div>
+
+    <div class="category-nav" id="categoryNav"></div>
+
+    <div class="container">
+        <div id="loading">Menü yükleniyor, lütfen bekleyin...</div>
+        <div id="menuContainer"></div>
+    </div>
+
+    <script>
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pubhtml';
+
+        async function fetchMenu() {
+            try {
+                const response = await fetch(sheetUrl);
+                const htmlText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                const rows = Array.from(doc.querySelectorAll('table tbody tr'));
+
+                const items = [];
+                // İlk satır başlık olduğu için 1. indeksten başlıyoruz
+                for (let i = 1; i < rows.length; i++) {
+                    const cells = rows[i].querySelectorAll('td');
+                    if (cells.length >= 4) {
+                        const category = cells[0]?.textContent?.trim() || '';
+                        const name = cells[1]?.textContent?.trim() || '';
+                        const desc = cells[2]?.textContent?.trim() || '';
+                        const price = cells[3]?.textContent?.trim() || '';
+                        const status = cells[4]?.textContent?.trim() || 'Satışta';
+
+                        if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
+                            items.push({ category, name, desc, price });
+                        }
+                    }
+                }
+
+                renderMenu(items);
+            } catch (err) {
+                document.getElementById('loading').innerHTML = 'Menü yüklenirken bir sorun oluştu.';
+            }
+        }
+
+        function renderMenu(items) {
+            document.getElementById('loading').style.display = 'none';
+            const categories = [...new Set(items.map(item => item.category))].filter(Boolean);
+            
+            const navContainer = document.getElementById('categoryNav');
+            const menuContainer = document.getElementById('menuContainer');
+            
+            navContainer.innerHTML = '';
+            menuContainer.innerHTML = '';
+
+            categories.forEach((cat, index) => {
+                // Kategori Butonu
+                const btn = document.createElement('button');
+                btn.className = `cat-btn ${index === 0 ? 'active' : ''}`;
+                btn.textContent = cat;
+                btn.onclick = () => {
+                    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const el = document.getElementById(`cat-${index}`);
+                    if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                navContainer.appendChild(btn);
+
+                // Kategori Başlığı
+                const catTitle = document.createElement('div');
+                catTitle.className = 'section-title';
+                catTitle.id = `cat-${index}`;
+                catTitle.textContent = cat;
+                menuContainer.appendChild(catTitle);
+
+                // Ürünler
+                items.filter(item => item.category === cat).forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'item-card';
+                    card.innerHTML = `
+                        <div class="item-info">
+                            <div class="item-title">${item.name}</div>
+                            <div class="item-desc">${item.desc}</div>
+                        </div>
+                        <div class="item-price">${item.price} ₺</div>
+                    `;
+                    menuContainer.appendChild(card);
+                });
+            });
+        }
+
+        fetchMenu();
+    </script>
+</body>
+</html>

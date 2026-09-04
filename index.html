@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUN & FUN - Dijital Menü</title>
-    <!-- Brittany fontu için Google Fonts bağlantısı -->
+    <!-- Brittany / El yazısı fontu ve Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -22,20 +22,21 @@
         }
         header {
             background-color: #f5f5f0;
-            padding: 20px 15px;
+            padding: 25px 15px;
             text-align: center;
             border-bottom: 1px solid #e0e0dc;
         }
-        .logo-img {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 5px;
+        .header-brand {
+            font-size: 28px;
+            font-weight: 700;
+            color: #c73729;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
         }
         .slogan {
             font-family: 'Great Vibes', cursive;
-            font-size: 28px;
-            color: #d15123;
-            margin-top: -5px;
+            font-size: 26px;
+            color: #ee8e00;
         }
         .container {
             max-width: 600px;
@@ -54,12 +55,6 @@
             height: 60vh;
             text-align: center;
         }
-        .lang-title {
-            font-size: 22px;
-            margin-bottom: 25px;
-            font-weight: 600;
-            color: #444;
-        }
         .lang-buttons {
             display: flex;
             flex-direction: column;
@@ -69,18 +64,25 @@
         }
         .lang-btn {
             background-color: #ffffff;
-            border: 2px solid #d15123;
-            color: #d15123;
-            padding: 14px;
-            font-size: 18px;
+            border: 2px solid #c73729;
+            color: #c73729;
+            padding: 14px 20px;
+            font-size: 17px;
             font-weight: 600;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .lang-btn span.flag {
+            font-size: 22px;
         }
         .lang-btn:hover {
-            background-color: #d15123;
+            background-color: #c73729;
             color: #ffffff;
             transform: translateY(-2px);
         }
@@ -102,7 +104,7 @@
         .back-btn {
             background: none;
             border: none;
-            color: #d15123;
+            color: #c73729;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -137,7 +139,7 @@
             justify-content: space-between;
             align-items: center;
             transition: transform 0.2s;
-            border-left: 5px solid #d15123;
+            border-left: 5px solid #c73729;
         }
         .category-card:hover {
             transform: scale(1.01);
@@ -168,7 +170,14 @@
             height: 80px;
             border-radius: 8px;
             object-fit: cover;
-            background-color: #ddd;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 11px;
+            text-align: center;
+            border: 1px dashed #ccc;
         }
         .product-info {
             flex-grow: 1;
@@ -182,10 +191,10 @@
         .product-price {
             font-size: 15px;
             font-weight: 700;
-            color: #d15123;
+            color: #c73729;
         }
 
-        /* Ürün Detay Modal (Açılır Ekran) */
+        /* Ürün Detay Modal */
         .modal {
             display: none;
             position: fixed;
@@ -227,11 +236,16 @@
         }
         .modal-img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             border-radius: 12px;
             object-fit: cover;
             margin-bottom: 15px;
-            background-color: #ddd;
+            background-color: #eee;
+            border: 1px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
         }
         .modal-title {
             font-size: 20px;
@@ -248,27 +262,31 @@
         .modal-price {
             font-size: 20px;
             font-weight: 700;
-            color: #d15123;
+            color: #c73729;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <!-- Gönderdiğin logo görselinin dosya adını buraya yazmalısın (örn: logo.png) -->
-        <img src="logo.png" alt="BUN & FUN Logo" class="logo-img">
+        <div class="header-brand">BUN & FUN BURGER</div>
         <div class="slogan">fun in every bite</div>
     </header>
 
     <div class="container">
         
-        <!-- 1. DİL SEÇİM EKRANI -->
+        <!-- 1. DİL SEÇİM EKRANI (BAYRAKLI) -->
         <div id="language-screen" class="screen active">
-            <div class="lang-title">Lütfen Dil Seçiniz / Please Select Language / Выберите язык</div>
             <div class="lang-buttons">
-                <button class="lang-btn" onclick="setLanguage('tr')">Türkçe</button>
-                <button class="lang-btn" onclick="setLanguage('en')">English</button>
-                <button class="lang-btn" onclick="setLanguage('ru')">Русский</button>
+                <button class="lang-btn" onclick="setLanguage('tr')">
+                    <span class="flag">🇹🇷</span> Türkçe
+                </button>
+                <button class="lang-btn" onclick="setLanguage('en')">
+                    <span class="flag">🇬🇧</span> English
+                </button>
+                <button class="lang-btn" onclick="setLanguage('ru')">
+                    <span class="flag">🇷🇺</span> Русский
+                </button>
             </div>
         </div>
 
@@ -278,9 +296,7 @@
                 <button class="back-btn" onclick="goBackToLanguages()">← <span id="txt-change-lang">Dil Değiştir</span></button>
             </div>
             <div class="section-title" id="txt-categories-title">Kategoriler</div>
-            <div class="category-grid" id="category-container">
-                <!-- Kategoriler JavaScript ile dinamik eklenecek -->
-            </div>
+            <div class="category-grid" id="category-container"></div>
         </div>
 
         <!-- 3. ÜRÜN LİSTESİ EKRANI -->
@@ -289,19 +305,18 @@
                 <button class="back-btn" onclick="goBackToCategories()">← <span id="txt-back-cat">Kategoriler</span></button>
             </div>
             <div class="section-title" id="product-section-title">Ürünler</div>
-            <div class="product-list" id="product-container">
-                <!-- Ürünler JavaScript ile dinamik eklenecek -->
-            </div>
+            <div class="product-list" id="product-container"></div>
         </div>
 
     </div>
 
-    <!-- 4. ÜRÜN DETAY MODALI (POPUP) -->
+    <!-- 4. ÜRÜN DETAY MODALI -->
     <div class="modal" id="product-modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">×</button>
-            <!-- Görselin olmadığı durumda varsayılan bir yer tutucu veya ürün görseli çıkacak -->
-            <img id="modal-img" src="" alt="Ürün Görseli" class="modal-img">
+            <div id="modal-img-container" style="width:100%; height:200px; background:#eee; border-radius:12px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; color:#888; font-size:13px; border:1px dashed #ccc;">
+                [ Ürün Görseli Yakında ]
+            </div>
             <h3 id="modal-title" class="modal-title">Ürün Adı</h3>
             <p id="modal-desc" class="modal-desc">Ürün açıklaması burada yer alacak.</p>
             <div id="modal-price" class="modal-price">00 TL</div>
@@ -309,74 +324,66 @@
     </div>
 
     <script>
-        // Google Sheets verilerini buraya simüle ediyoruz veya entegre ediyoruz.
-        // Üç dilde verilerin yapısı:
         const menuData = {
             tr: {
                 categoriesTitle: "Kategoriler",
-                changeLang: "Dil Değiştir",
+                changeLang: "Dil Seçimi",
                 backCat: "Kategoriler",
                 categories: [
                     {
-                        id: "burgerler",
                         name: "Burgerler",
                         products: [
-                            { name: "Classic Burger", desc: "150 gr dana köfte, cheddar, karamelize soğan,özel sos.", price: "240 TL", image: "" },
-                            { name: "Smokey Fun Burger", desc: "Füme kaburga, cheddar peyniri, barbekü sos ve çıtır soğan.", price: "290 TL", image: "" }
+                            { name: "Classic Burger", desc: "150 gr dana köfte, cheddar, karamelize soğan, özel sos.", price: "240 TL" },
+                            { name: "Smokey Fun Burger", desc: "Füme kaburga, cheddar peyniri, barbekü sos ve çıtır soğan.", price: "290 TL" }
                         ]
                     },
                     {
-                        id: "icecekler",
                         name: "İçecekler",
                         products: [
-                            { name: "Ev Yapımı Soğukçay", desc: "Taze şeftali aromalı ev yapımı soğuk çay.", price: "70 TL", image: "" },
-                            { name: "Limonata", desc: "Nane ve taze limon dilimleriyle.", price: "75 TL", image: "" }
+                            { name: "Ev Yapımı Soğukçay", desc: "Taze şeftali aromalı ev yapımı soğuk çay.", price: "70 TL" },
+                            { name: "Limonata", desc: "Nane ve taze limon dilimleriyle.", price: "75 TL" }
                         ]
                     }
                 ]
             },
             en: {
                 categoriesTitle: "Categories",
-                changeLang: "Change Language",
+                changeLang: "Language",
                 backCat: "Categories",
                 categories: [
                     {
-                        id: "burgerler",
                         name: "Burgers",
                         products: [
-                            { name: "Classic Burger", desc: "150g beef patty, cheddar, caramelized onions, special sauce.", price: "240 TL", image: "" },
-                            { name: "Smokey Fun Burger", desc: "Smoked beef ribs, cheddar cheese, BBQ sauce and crispy onions.", price: "290 TL", image: "" }
+                            { name: "Classic Burger", desc: "150g beef patty, cheddar, caramelized onions, special sauce.", price: "240 TL" },
+                            { name: "Smokey Fun Burger", desc: "Smoked beef ribs, cheddar cheese, BBQ sauce and crispy onions.", price: "290 TL" }
                         ]
                     },
                     {
-                        id: "icecekler",
                         name: "Beverages",
                         products: [
-                            { name: "Homemade Iced Tea", desc: "Fresh peach flavored homemade iced tea.", price: "70 TL", image: "" },
-                            { name: "Lemonade", desc: "With mint and fresh lemon slices.", price: "75 TL", image: "" }
+                            { name: "Homemade Iced Tea", desc: "Fresh peach flavored homemade iced tea.", price: "70 TL" },
+                            { name: "Lemonade", desc: "With mint and fresh lemon slices.", price: "75 TL" }
                         ]
                     }
                 ]
             },
             ru: {
                 categoriesTitle: "Категории",
-                changeLang: "Сменить язык",
+                changeLang: "Язык",
                 backCat: "Категории",
                 categories: [
                     {
-                        id: "burgerler",
                         name: "Бургеры",
                         products: [
-                            { name: "Классический бургер", desc: "Говяжья котлета 150г, чеддер, карамелизованный лук, фирменный соус.", price: "240 TL", image: "" },
-                            { name: "Smokey Fun Бургер", desc: "Копченая говядина, сыр чеддер, соус барбекю и хрустящий лук.", price: "290 TL", image: "" }
+                            { name: "Классический бургер", desc: "Говяжья котлета 150г, чеддер, карамелизованный лук, фирменный соус.", price: "240 TL" },
+                            { name: "Smokey Fun Бургер", desc: "Копченая говядина, сыр чеддер, соус барбекю и хрустящий лук.", price: "290 TL" }
                         ]
                     },
                     {
-                        id: "icecekler",
                         name: "Напитки",
                         products: [
-                            { name: "Домашний холодный чай", desc: "Домашний холодный чай со вкусом свежего персика.", price: "70 TL", image: "" },
-                            { name: "Лимонад", desc: "С мятой и свежими ломтиками лимона.", price: "75 TL", image: "" }
+                            { name: "Домашний холодный чай", desc: "Домашний холодный чай со вкусом свежего персика.", price: "70 TL" },
+                            { name: "Лимонад", desc: "С мятой и свежими ломтиками лимона.", price: "75 TL" }
                         ]
                     }
                 ]
@@ -384,14 +391,12 @@
         };
 
         let currentLang = 'tr';
-        let currentCategoryIndex = null;
 
         function setLanguage(lang) {
             currentLang = lang;
             document.getElementById('language-screen').classList.remove('active');
             document.getElementById('categories-screen').classList.add('active');
             
-            // Dil metinlerini güncelle
             document.getElementById('txt-change-lang').innerText = menuData[lang].changeLang;
             document.getElementById('txt-categories-title').innerText = menuData[lang].categoriesTitle;
             document.getElementById('txt-back-cat').innerText = menuData[lang].backCat;
@@ -413,7 +418,6 @@
         }
 
         function openCategory(index) {
-            currentCategoryIndex = index;
             document.getElementById('categories-screen').classList.remove('active');
             document.getElementById('products-screen').classList.add('active');
 
@@ -426,11 +430,9 @@
             cat.products.forEach((prod) => {
                 const pCard = document.createElement('div');
                 pCard.className = 'product-card';
-                // Görsel henüz yoksa gri boş kutu gösterir, görsel eklendiğinde otomatik alır
-                const imgSrc = prod.image ? prod.image : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="%23ccc" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>';
                 
                 pCard.innerHTML = `
-                    <img src="${imgSrc}" class="product-thumb" alt="${prod.name}">
+                    <div class="product-thumb">Görsel Yok</div>
                     <div class="product-info">
                         <div class="product-name">${prod.name}</div>
                         <div class="product-price">${prod.price}</div>
@@ -443,13 +445,9 @@
 
         function openProductModal(prod) {
             const modal = document.getElementById('product-modal');
-            const imgSrc = prod.image ? prod.image : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 24 24" fill="none" stroke="%23ccc" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>';
-            
-            document.getElementById('modal-img').src = imgSrc;
             document.getElementById('modal-title').innerText = prod.name;
             document.getElementById('modal-desc').innerText = prod.desc;
             document.getElementById('modal-price').innerText = prod.price;
-            
             modal.classList.add('active');
         }
 

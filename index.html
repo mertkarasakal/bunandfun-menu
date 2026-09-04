@@ -178,6 +178,7 @@
             font-size: 11px;
             text-align: center;
             border: 1px dashed #ccc;
+            flex-shrink: 0;
         }
         .product-info {
             flex-grow: 1;
@@ -275,7 +276,7 @@
 
     <div class="container">
         
-        <!-- 1. DİL SEÇİM EKRANI (BAYRAKLI) -->
+        <!-- 1. DİL SEÇİM EKRANI -->
         <div id="language-screen" class="screen active">
             <div class="lang-buttons">
                 <button class="lang-btn" onclick="setLanguage('tr')">
@@ -293,7 +294,7 @@
         <!-- 2. KATEGORİLER EKRANI -->
         <div id="categories-screen" class="screen">
             <div class="back-bar">
-                <button class="back-btn" onclick="goBackToLanguages()">← <span id="txt-change-lang">Dil Değiştir</span></button>
+                <button class="back-btn" onclick="goBackToLanguages()">← <span id="txt-change-lang">Dil Seçimi</span></button>
             </div>
             <div class="section-title" id="txt-categories-title">Kategoriler</div>
             <div class="category-grid" id="category-container"></div>
@@ -324,6 +325,7 @@
     </div>
 
     <script>
+        // Tablonuzdaki tüm kategoriler ve 3 dildeki içerikler tam olarak entegre edilmiştir:
         const menuData = {
             tr: {
                 categoriesTitle: "Kategoriler",
@@ -334,14 +336,33 @@
                         name: "Burgerler",
                         products: [
                             { name: "Classic Burger", desc: "150 gr dana köfte, cheddar, karamelize soğan, özel sos.", price: "240 TL" },
-                            { name: "Smokey Fun Burger", desc: "Füme kaburga, cheddar peyniri, barbekü sos ve çıtır soğan.", price: "290 TL" }
+                            { name: "Cheeseburger", desc: "Bol cheddar peyniri ve özel burger sosu ile.", price: "260 TL" },
+                            { name: "Smokey Fun Burger", desc: "Füme kaburga, cheddar peyniri, barbekü sos ve çıtır soğan.", price: "290 TL" },
+                            { name: "Double Trouble Burger", desc: "Çift kat dana köfte, çift cheddar ve özel sos.", price: "340 TL" }
+                        ]
+                    },
+                    {
+                        name: "Atıştırmalıklar & Yan Ürünler",
+                        products: [
+                            { name: "Patates Kızartması", desc: "Özel baharatlı çıtır patates kızartması.", price: "90 TL" },
+                            { name: "Soğan Halkaları", desc: "Çıtır kaplamalı soğan halkaları (8 adet).", price: "100 TL" },
+                            { name: "Çıtır Tavuk Parçaları", desc: "Özel sos eşliğinde pane tavuk lokmaları.", price: "140 TL" }
+                        ]
+                    },
+                    {
+                        name: "Tatlılar",
+                        products: [
+                            { name: "Sufle", desc: "Akışkan çikolatalı ev yapımı sıcak sufle.", price: "120 TL" },
+                            { name: "Cheesecake", desc: "Frambuaz soslu enfes New York cheesecake.", price: "130 TL" }
                         ]
                     },
                     {
                         name: "İçecekler",
                         products: [
                             { name: "Ev Yapımı Soğukçay", desc: "Taze şeftali aromalı ev yapımı soğuk çay.", price: "70 TL" },
-                            { name: "Limonata", desc: "Nane ve taze limon dilimleriyle.", price: "75 TL" }
+                            { name: "Limonata", desc: "Nane ve taze limon dilimleriyle.", price: "75 TL" },
+                            { name: "Kola / Gazlı İçecekler", desc: "Soğuk servis edilir.", price: "60 TL" },
+                            { name: "Su", desc: "500 ml cam şişe.", price: "30 TL" }
                         ]
                     }
                 ]
@@ -355,14 +376,33 @@
                         name: "Burgers",
                         products: [
                             { name: "Classic Burger", desc: "150g beef patty, cheddar, caramelized onions, special sauce.", price: "240 TL" },
-                            { name: "Smokey Fun Burger", desc: "Smoked beef ribs, cheddar cheese, BBQ sauce and crispy onions.", price: "290 TL" }
+                            { name: "Cheeseburger", desc: "With plenty of cheddar cheese and special burger sauce.", price: "260 TL" },
+                            { name: "Smokey Fun Burger", desc: "Smoked beef ribs, cheddar cheese, BBQ sauce and crispy onions.", price: "290 TL" },
+                            { name: "Double Trouble Burger", desc: "Double beef patty, double cheddar and special sauce.", price: "340 TL" }
+                        ]
+                    },
+                    {
+                        name: "Sides & Appetizers",
+                        products: [
+                            { name: "French Fries", desc: "Crispy french fries with special spices.", price: "90 TL" },
+                            { name: "Onion Rings", desc: "Crispy coated onion rings (8 pcs).", price: "100 TL" },
+                            { name: "Crispy Chicken Bites", desc: "Breaded chicken nuggets served with special sauce.", price: "140 TL" }
+                        ]
+                    },
+                    {
+                        name: "Desserts",
+                        products: [
+                            { name: "Souffle", desc: "Warm homemade souffle with flowing chocolate.", price: "120 TL" },
+                            { name: "Cheesecake", desc: "Delicious New York cheesecake with raspberry sauce.", price: "130 TL" }
                         ]
                     },
                     {
                         name: "Beverages",
                         products: [
                             { name: "Homemade Iced Tea", desc: "Fresh peach flavored homemade iced tea.", price: "70 TL" },
-                            { name: "Lemonade", desc: "With mint and fresh lemon slices.", price: "75 TL" }
+                            { name: "Lemonade", desc: "With mint and fresh lemon slices.", price: "75 TL" },
+                            { name: "Cola / Soft Drinks", desc: "Served cold.", price: "60 TL" },
+                            { name: "Water", desc: "500 ml glass bottle.", price: "30 TL" }
                         ]
                     }
                 ]
@@ -376,14 +416,33 @@
                         name: "Бургеры",
                         products: [
                             { name: "Классический бургер", desc: "Говяжья котлета 150г, чеддер, карамелизованный лук, фирменный соус.", price: "240 TL" },
-                            { name: "Smokey Fun Бургер", desc: "Копченая говядина, сыр чеддер, соус барбекю и хрустящий лук.", price: "290 TL" }
+                            { name: "Чизбургер", desc: "С большим количеством сыра чеддер и фирменным соусом.", price: "260 TL" },
+                            { name: "Smokey Fun Бургер", desc: "Копченая говядина, сыр чеддер, соус барбекю и хрустящий лук.", price: "290 TL" },
+                            { name: "Двойной бургер", desc: "Двойная говяжья котлета, двойной чеддер и фирменный соус.", price: "340 TL" }
+                        ]
+                    },
+                    {
+                        name: "Закуски",
+                        products: [
+                            { name: "Картофель фри", desc: "Хрустящий картофель фри со специями.", price: "90 TL" },
+                            { name: "Луковые кольца", desc: "Хрустящие луковые кольца (8 шт).", price: "100 TL" },
+                            { name: "Куриные наггетсы", desc: "Кусочки курицы в панировке с фирменным соусом.", price: "140 TL" }
+                        ]
+                    },
+                    {
+                        name: "Десерты",
+                        products: [
+                            { name: "Суфле", desc: "Теплое домашнее суфле с жидким шоколадом.", price: "120 TL" },
+                            { name: "Чизкейк", desc: "Вкуснейший нью-йоркский чизкейк с малиновым соусом.", price: "130 TL" }
                         ]
                     },
                     {
                         name: "Напитки",
                         products: [
                             { name: "Домашний холодный чай", desc: "Домашний холодный чай со вкусом свежего персика.", price: "70 TL" },
-                            { name: "Лимонад", desc: "С мятой и свежими ломтиками лимона.", price: "75 TL" }
+                            { name: "Лимонад", desc: "С мятой и свежими ломтиками лимона.", price: "75 TL" },
+                            { name: "Кола / Газировка", desc: "Подается холодным.", price: "60 TL" },
+                            { name: "Вода", desc: "Стеклянная бутылка 500 мл.", price: "30 TL" }
                         ]
                     }
                 ]

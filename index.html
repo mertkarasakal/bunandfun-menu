@@ -6,238 +6,135 @@
   <title>BUN & FUN - Dijital Menü</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f1715;
-      color: #ffffff;
-      padding-bottom: 50px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background-color: #0f1715; color: #ffffff; padding-bottom: 50px; }
 
     /* HEADER & LOGO */
-    .menu-header {
-      text-align: center;
-      padding: 35px 15px 20px;
-      background: linear-gradient(180deg, #050a08 0%, #0f1715 100%);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .logo-title {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: 3px;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .logo-title .ampersand {
-      color: #d4af37;
-    }
-
-    .logo-tagline {
-      display: block;
-      font-size: 1.1rem;
-      color: #d4af37;
-      letter-spacing: 2px;
-      margin-top: 8px;
-      font-weight: 400;
-    }
+    .menu-header { text-align: center; padding: 30px 15px 15px; background: linear-gradient(180deg, #050a08 0%, #0f1715 100%); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+    .logo-title { font-size: 2.5rem; font-weight: 900; color: #ffffff; letter-spacing: 3px; line-height: 1; text-transform: uppercase; }
+    .logo-title .ampersand { color: #d4af37; }
+    .logo-tagline { display: block; font-size: 1rem; color: #d4af37; letter-spacing: 2px; margin-top: 6px; font-weight: 400; }
 
     /* DİL SEÇİMİ */
-    .lang-picker {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 20px 0 10px;
-    }
-
-    .lang-btn {
-      background: #1a2622;
-      color: #cccccc;
-      border: 1px solid #d4af37;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
-
-    .lang-btn.active, .lang-btn:hover {
-      background: #d4af37;
-      color: #000000;
-    }
+    .lang-picker { display: flex; justify-content: center; gap: 10px; margin: 20px 0 10px; }
+    .lang-btn { background: #1a2622; color: #cccccc; border: 1px solid #d4af37; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+    .lang-btn.active { background: #d4af37; color: #000000; }
 
     /* MENÜ İÇERİK */
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    .category-title {
-      color: #d4af37;
-      font-size: 1.5rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin: 30px 0 15px;
-      border-bottom: 2px solid #d4af37;
-      padding-bottom: 5px;
-      letter-spacing: 1px;
-    }
-
-    .menu-item {
-      background: #16221f;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .item-info {
-      flex: 1;
-    }
-
-    .item-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .item-desc {
-      font-size: 0.85rem;
-      color: #aaaaaa;
-      line-height: 1.4;
-    }
-
-    .item-price {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #d4af37;
-      white-space: nowrap;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #d4af37;
-      font-size: 1.2rem;
-    }
+    .container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+    .category-title { color: #d4af37; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin: 25px 0 12px; border-bottom: 2px solid #d4af37; padding-bottom: 5px; }
+    .menu-item { background: #16221f; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; gap: 15px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    .item-info { flex: 1; }
+    .item-name { font-size: 1.05rem; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
+    .item-desc { font-size: 0.85rem; color: #aaaaaa; line-height: 1.3; }
+    .item-price { font-size: 1.1rem; font-weight: 800; color: #d4af37; white-space: nowrap; }
+    .status-msg { text-align: center; padding: 30px; color: #d4af37; font-size: 1rem; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER / LOGO AREA -->
   <header class="menu-header">
     <div class="logo-container">
       <h1 class="logo-title">BUN<span class="ampersand">&</span>FUN</h1>
       <span class="logo-tagline">fun in every bite</span>
     </div>
 
-    <!-- LANGUAGE BUTTONS -->
     <div class="lang-picker">
-      <button class="lang-btn active" onclick="changeLanguage('TR')">TR</button>
-      <button class="lang-btn" onclick="changeLanguage('EN')">EN</button>
-      <button class="lang-btn" onclick="changeLanguage('RU')">RU</button>
+      <button class="lang-btn active" id="btn-TR" onclick="changeLanguage('TR')">TR</button>
+      <button class="lang-btn" id="btn-EN" onclick="changeLanguage('EN')">EN</button>
+      <button class="lang-btn" id="btn-RU" onclick="changeLanguage('RU')">RU</button>
     </div>
   </header>
 
-  <!-- MENU CONTAINER -->
   <main class="container" id="menu-container">
-    <div class="loading">Menü Yükleniyor...</div>
+    <div class="status-msg" id="status">Menü Yükleniyor...</div>
   </main>
 
   <script>
-    // GOOGLE SHEETS CSV LINKINI BURAYA YAPIŞTIRIN
+    // GOOGLE SHEETS 'WEB'DE YAYINLA' CSV LİNKİNİ BURAYA YAPIŞTIRIN:
     const SHEET_CSV_URL = 'BURAYA_GOOGLE_SHEETS_CSV_LINKINI_YAPISTIRIN';
 
     let currentLang = 'TR';
-    let menuData = [];
+    let rawRows = [];
 
-    // CSV Parse Fonksiyonu
-    function parseCSV(text) {
-      const lines = text.split('\n');
-      const result = [];
-      for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        const row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/^"|"$/g, '').trim());
-        result.push(row);
+    // CSV Parser
+    function parseCSVLine(text) {
+      let p = '', c = '', r = [];
+      let q = false;
+      for (let i = 0; i < text.length; i++) {
+        c = text[i];
+        if (c === '"') { q = !q; }
+        else if ((c === ',' || c === ';') && !q) { r.push(p.trim().replace(/^"|"$/g, '')); p = ''; }
+        else { p += c; }
       }
-      return result;
+      r.push(p.trim().replace(/^"|"$/g, ''));
+      return r;
     }
 
-    // Google Tablo Verilerini Çekme
     async function fetchMenu() {
+      const statusDiv = document.getElementById('status');
+      if (!SHEET_CSV_URL || SHEET_CSV_URL.includes('BURAYA_GOOGLE')) {
+        statusDiv.innerHTML = "⚠️ Lütfen koddaki <b>SHEET_CSV_URL</b> alanına Google Tablo CSV linkinizi yapıştırın.";
+        return;
+      }
+
       try {
         const response = await fetch(SHEET_CSV_URL);
-        const csvText = await response.text();
-        const rows = parseCSV(csvText);
+        const text = await response.text();
+        const lines = text.split('\n');
 
-        menuData = rows.map(row => ({
-          catTR: row[0] || '',
-          nameTR: row[1] || '',
-          descTR: row[2] || '',
-          price: row[3] || '',
-          status: row[4] || '',
-          catEN: row[6] || row[0] || '',
-          nameEN: row[7] || row[1] || '',
-          descEN: row[8] || row[2] || '',
-          catRU: row[9] || row[0] || '',
-          nameRU: row[10] || row[1] || '',
-          descRU: row[11] || row[2] || ''
-        }));
-
+        rawRows = [];
+        for (let i = 1; i < lines.length; i++) {
+          if (lines[i].trim()) {
+            rawRows.push(parseCSVLine(lines[i]));
+          }
+        }
         renderMenu();
       } catch (err) {
-        document.getElementById('menu-container').innerHTML = '<div class="loading">Menü yüklenirken hata oluştu.</div>';
+        statusDiv.innerHTML = "❌ Veriler çekilemedi. Bağlantınızı veya Google Tablo 'Web'de Yayınla' iznini kontrol edin.";
       }
     }
 
-    // Dili Değiştirme
     function changeLanguage(lang) {
       currentLang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText === lang);
-      });
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-' + lang).classList.add('active');
       renderMenu();
     }
 
-    // Ekrana Basma
     function renderMenu() {
       const container = document.getElementById('menu-container');
       container.innerHTML = '';
 
-      const activeItems = menuData.filter(item => item.status.toLowerCase().includes('satışta'));
+      if (rawRows.length === 0) {
+        container.innerHTML = '<div class="status-msg">Satışta ürün bulunamadı.</div>';
+        return;
+      }
 
       const categories = {};
-      activeItems.forEach(item => {
-        let cat = item.catTR;
-        let name = item.nameTR;
-        let desc = item.descTR;
 
-        if (currentLang === 'EN') {
-          cat = item.catEN;
-          name = item.nameEN;
-          desc = item.descEN;
-        } else if (currentLang === 'RU') {
-          cat = item.catRU;
-          name = item.nameRU;
-          desc = item.descRU;
+      rawRows.forEach(row => {
+        const status = row[4] || '';
+        // Satışta kontrolü
+        if (status.toLowerCase().includes('satışta')) {
+          let cat = row[0] || '';
+          let name = row[1] || '';
+          let desc = row[2] || '';
+          let price = row[3] || '';
+
+          if (currentLang === 'EN') {
+            cat = row[6] || cat;
+            name = row[7] || name;
+            desc = row[8] || desc;
+          } else if (currentLang === 'RU') {
+            cat = row[9] || cat;
+            name = row[10] || name;
+            desc = row[11] || desc;
+          }
+
+          if (!categories[cat]) categories[cat] = [];
+          categories[cat].push({ name, desc, price });
         }
-
-        if (!categories[cat]) categories[cat] = [];
-        categories[cat].push({ name, desc, price: item.price });
       });
 
       for (const [category, items] of Object.entries(categories)) {

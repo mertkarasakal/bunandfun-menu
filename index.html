@@ -41,18 +41,17 @@
         }
 
         .logo-box {
-            width: 110px;
-            height: 110px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .logo-box img {
+        .logo-box svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
         }
 
         .header h1 {
@@ -349,7 +348,28 @@
     <!-- Header -->
     <div class="header">
         <div class="logo-box">
-            <img src="https://i.ibb.co/Lhb4G4n/bunandfun-logo-cream.png" alt="BUN&FUN BURGER Logo">
+            <!-- Vektörel Logo (Arka Plan #fff3db ile Tam Uyumlu) -->
+            <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="240" fill="#FFF3DB"/>
+                <!-- Çizgiler -->
+                <path d="M25 80 L55 60 M15 105 L45 105 M25 130 L55 145" stroke="#3d2314" stroke-width="8" stroke-linecap="round"/>
+                <path d="M275 80 L245 60 M285 105 L255 105 M275 130 L245 145" stroke="#3d2314" stroke-width="8" stroke-linecap="round"/>
+                <!-- Üst Ekmek -->
+                <path d="M90 90 C90 35, 210 35, 210 90 Z" fill="#f59e0b" stroke="#3d2314" stroke-width="7" stroke-linejoin="round"/>
+                <ellipse cx="135" cy="52" rx="6" ry="3" fill="#fff" opacity="0.6"/>
+                <!-- Gözler ve Gülümseme -->
+                <path d="M125 65 Q135 55 145 65" stroke="#3d2314" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <path d="M155 65 Q165 55 175 65" stroke="#3d2314" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <path d="M138 72 Q150 88 162 72 Z" fill="#3d2314"/>
+                <!-- Sos -->
+                <path d="M85 92 Q100 112 120 95 Q140 115 160 95 Q180 115 200 95 Q210 110 215 92 Z" fill="#ef4444" stroke="#3d2314" stroke-width="6" stroke-linejoin="round"/>
+                <!-- Köfte -->
+                <rect x="90" y="102" width="120" height="20" rx="10" fill="#78350f" stroke="#3d2314" stroke-width="6"/>
+                <!-- Alt Ekmek -->
+                <path d="M90 126 C90 145, 210 145, 210 126 Z" fill="#f59e0b" stroke="#3d2314" stroke-width="7" stroke-linejoin="round"/>
+                <!-- Yazı: BUN & FUN -->
+                <text x="150" y="200" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="34" fill="#d97706" stroke="#3d2314" stroke-width="3" paint-order="stroke fill" letter-spacing="1">BUN&amp;FUN</text>
+            </svg>
         </div>
         <h1>BUN<span>&</span>FUN BURGER</h1>
         <p>Gourmet Burger & More • Dijital Menü</p>

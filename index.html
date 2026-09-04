@@ -46,7 +46,7 @@
             flex-grow: 1;
         }
 
-        /* Sayfa Yönetimi (Yalnızca aktif olan görünür) */
+        /* Sayfa Yönetimi */
         .page {
             display: none;
         }
@@ -289,7 +289,7 @@
     </div>
 
     <script>
-        // Google Sheets tablonuzdaki tüm kategori ve ürün verileri (3 dil)
+        // Eksiksiz ürünler ve kategoriler (Tatlılar çıkarıldı, tüm diller eklendi)
         const menuData = {
             tr: {
                 backLang: "Dil Seçimi",
@@ -303,7 +303,9 @@
                             { name: "Classic Burger", desc: "150 gr dana köfte, cheddar, karamelize soğan, özel sos.", price: "240 TL" },
                             { name: "Cheeseburger", desc: "Bol cheddar peyniri ve özel burger sosu ile.", price: "260 TL" },
                             { name: "Smokey Fun Burger", desc: "Füme kaburga, cheddar peyniri, barbekü sos ve çıtır soğan.", price: "290 TL" },
-                            { name: "Double Trouble Burger", desc: "Çift kat dana köfte, çift cheddar ve özel sos.", price: "340 TL" }
+                            { name: "Double Trouble Burger", desc: "Çift kat dana köfte, çift cheddar ve özel sos.", price: "340 TL" },
+                            { name: "Truffle Mushroom Burger", desc: "Trüf mantarlı özel sos, karamelize soğan ve cheddar.", price: "310 TL" },
+                            { name: "Crispy Chicken Burger", desc: "Çıtır pane tavuk göğsü, marul veözel burger sos.", price: "250 TL" }
                         ]
                     },
                     {
@@ -311,14 +313,8 @@
                         products: [
                             { name: "Patates Kızartması", desc: "Özel baharatlı çıtır patates kızartması.", price: "90 TL" },
                             { name: "Soğan Halkaları", desc: "Çıtır kaplamalı soğan halkaları (8 adet).", price: "100 TL" },
-                            { name: "Çıtır Tavuk Parçaları", desc: "Özel sos eşliğinde pane tavuk lokmaları.", price: "140 TL" }
-                        ]
-                    },
-                    {
-                        name: "Tatlılar",
-                        products: [
-                            { name: "Sufle", desc: "Akışkan çikolatalı ev yapımı sıcak sufle.", price: "120 TL" },
-                            { name: "Cheesecake", desc: "Frambuaz soslu enfes New York cheesecake.", price: "130 TL" }
+                            { name: "Çıtır Tavuk Parçaları", desc: "Özel sos eşliğinde pane tavuk lokmaları.", price: "140 TL" },
+                            { name: "Mozzarella Sticks", desc: "Çıtır kaplamalı uzayan mozzarella peynirleri.", price: "130 TL" }
                         ]
                     },
                     {
@@ -327,7 +323,8 @@
                             { name: "Ev Yapımı Soğukçay", desc: "Taze şeftali aromalı ev yapımı soğuk çay.", price: "70 TL" },
                             { name: "Limonata", desc: "Nane ve taze limon dilimleriyle.", price: "75 TL" },
                             { name: "Kola / Gazlı İçecekler", desc: "Soğuk servis edilir.", price: "60 TL" },
-                            { name: "Su", desc: "500 ml cam şişe.", price: "30 TL" }
+                            { name: "Su", desc: "500 ml cam şişe.", price: "30 TL" },
+                            { name: "Ayran", desc: "Bol köpüklü yayık ayranı.", price: "40 TL" }
                         ]
                     }
                 ]
@@ -344,7 +341,9 @@
                             { name: "Classic Burger", desc: "150g beef patty, cheddar, caramelized onions, special sauce.", price: "240 TL" },
                             { name: "Cheeseburger", desc: "With plenty of cheddar cheese and special burger sauce.", price: "260 TL" },
                             { name: "Smokey Fun Burger", desc: "Smoked beef ribs, cheddar cheese, BBQ sauce and crispy onions.", price: "290 TL" },
-                            { name: "Double Trouble Burger", desc: "Double beef patty, double cheddar and special sauce.", price: "340 TL" }
+                            { name: "Double Trouble Burger", desc: "Double beef patty, double cheddar and special sauce.", price: "340 TL" },
+                            { name: "Truffle Mushroom Burger", desc: "Truffle mushroom special sauce, caramelized onions and cheddar.", price: "310 TL" },
+                            { name: "Crispy Chicken Burger", desc: "Crispy breaded chicken breast, lettuce and special burger sauce.", price: "250 TL" }
                         ]
                     },
                     {
@@ -352,14 +351,8 @@
                         products: [
                             { name: "French Fries", desc: "Crispy french fries with special spices.", price: "90 TL" },
                             { name: "Onion Rings", desc: "Crispy coated onion rings (8 pcs).", price: "100 TL" },
-                            { name: "Crispy Chicken Bites", desc: "Breaded chicken nuggets served with special sauce.", price: "140 TL" }
-                        ]
-                    },
-                    {
-                        name: "Desserts",
-                        products: [
-                            { name: "Souffle", desc: "Warm homemade souffle with flowing chocolate.", price: "120 TL" },
-                            { name: "Cheesecake", desc: "Delicious New York cheesecake with raspberry sauce.", price: "130 TL" }
+                            { name: "Crispy Chicken Bites", desc: "Breaded chicken nuggets served with special sauce.", price: "140 TL" },
+                            { name: "Mozzarella Sticks", desc: "Crispy coated stretchy mozzarella cheese sticks.", price: "130 TL" }
                         ]
                     },
                     {
@@ -368,7 +361,8 @@
                             { name: "Homemade Iced Tea", desc: "Fresh peach flavored homemade iced tea.", price: "70 TL" },
                             { name: "Lemonade", desc: "With mint and fresh lemon slices.", price: "75 TL" },
                             { name: "Cola / Soft Drinks", desc: "Served cold.", price: "60 TL" },
-                            { name: "Water", desc: "500 ml glass bottle.", price: "30 TL" }
+                            { name: "Water", desc: "500 ml glass bottle.", price: "30 TL" },
+                            { name: "Ayran", desc: "Traditional frothy yogurt drink.", price: "40 TL" }
                         ]
                     }
                 ]
@@ -385,7 +379,9 @@
                             { name: "Классический бургер", desc: "Говяжья котлета 150г, чеддер, карамелизованный лук, фирменный соус.", price: "240 TL" },
                             { name: "Чизбургер", desc: "С большим количеством сыра чеддер и фирменным соусом.", price: "260 TL" },
                             { name: "Smokey Fun Бургер", desc: "Копченая говядина, сыр чеддер, соус барбекю и хрустящий лук.", price: "290 TL" },
-                            { name: "Двойной бургер", desc: "Двойная говяжья котлета, двойной чеддер и фирменный соус.", price: "340 TL" }
+                            { name: "Двойной бургер", desc: "Двойная говяжья котлета, двойной чеддер и фирменный соус.", price: "340 TL" },
+                            { name: "Трюфельный бургер с грибами", desc: "Фирменный трюфельный соус, карамелизованный лук и сыр чеддер.", price: "310 TL" },
+                            { name: "Куриный бургер", desc: "Хрустящая куриная грудка, салат айсберг и фирменный соус.", price: "250 TL" }
                         ]
                     },
                     {
@@ -393,14 +389,8 @@
                         products: [
                             { name: "Картофель фри", desc: "Хрустящий картофель фри со специями.", price: "90 TL" },
                             { name: "Луковые кольца", desc: "Хрустящие луковые кольца (8 шт).", price: "100 TL" },
-                            { name: "Куриные наггетсы", desc: "Кусочки курицы в панировке с фирменным соусом.", price: "140 TL" }
-                        ]
-                    },
-                    {
-                        name: "Десерты",
-                        products: [
-                            { name: "Суфле", desc: "Теплое домашнее суфле с жидким шоколадом.", price: "120 TL" },
-                            { name: "Чизкейк", desc: "Вкуснейший нью-йоркский чизкейк с малиновым соусом.", price: "130 TL" }
+                            { name: "Куриные наггетсы", desc: "Кусочки курицы в панировке с фирменным соусом.", price: "140 TL" },
+                            { name: "Моцарелла стicks", desc: "Хрустящие палочки из сыра моцарелла.", price: "130 TL" }
                         ]
                     },
                     {
@@ -409,7 +399,8 @@
                             { name: "Домашний холодный чай", desc: "Домашний холодный чай со вкусом свежего персика.", price: "70 TL" },
                             { name: "Лимонад", desc: "С мятой и свежими ломтиками лимона.", price: "75 TL" },
                             { name: "Кола / Газировка", desc: "Подается холодным.", price: "60 TL" },
-                            { name: "Вода", desc: "Стеклянная бутылка 500 мл.", price: "30 TL" }
+                            { name: "Вода", desc: "Стеклянная бутылка 500 мл.", price: "30 TL" },
+                            { name: "Айран", desc: "Традиционный кисломолочный напиток.", price: "40 TL" }
                         ]
                     }
                 ]
@@ -419,9 +410,7 @@
         let currentLang = 'tr';
 
         function goToPage(pageId) {
-            // Tüm sayfaları gizle
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Hedef sayfayı aç
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
@@ -429,13 +418,11 @@
         function selectLanguage(lang) {
             currentLang = lang;
             
-            // Metinleri dile göre güncelle
             document.getElementById('txt-back-lang').innerText = menuData[lang].backLang;
             document.getElementById('txt-back-cat').innerText = menuData[lang].backCat;
             document.getElementById('txt-back-prod').innerText = menuData[lang].backProd;
             document.getElementById('txt-cat-title').innerText = menuData[lang].catTitle;
 
-            // Kategorileri listele ve Kategoriler sayfasına geç
             renderCategories();
             goToPage('page-categories');
         }

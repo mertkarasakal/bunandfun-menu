@@ -8,11 +8,11 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* ÖZEL TEMA RENKLERİ: KOYU YEŞİL & ALTIN SARISI */
+    /* ÖZEL TEMA RENKLERİ: KREM ZEMİN (#fff3db) & KOYU YEŞİL VE ALTIN DETAYLAR */
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0B1310; /* Derin Koyu Yeşil Zemin */
-      color: #FFFFFF;
+      background: #fff3db; /* İstediğiniz Açık Zemin Rengi */
+      color: #1a221f;
       min-height: 100vh;
       padding-bottom: 40px;
     }
@@ -21,8 +21,9 @@
     .menu-header {
       text-align: center;
       padding: 35px 20px 20px;
-      background: linear-gradient(180deg, #040806 0%, #0B1310 100%);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      background: linear-gradient(180deg, #0e1815 0%, #172621 100%);
+      border-bottom: 2px solid #d4af37;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     .logo-title {
       font-size: 2.6rem;
@@ -32,18 +33,18 @@
       line-height: 1;
       text-transform: uppercase;
     }
-    .logo-title .ampersand { color: #D4AF37; }
+    .logo-title .ampersand { color: #d4af37; }
     .logo-tagline {
       display: block;
       font-size: 1rem;
-      color: #D4AF37;
+      color: #d4af37;
       letter-spacing: 2px;
       margin-top: 6px;
       font-weight: 400;
       text-transform: lowercase;
     }
 
-    /* DİL SEÇİM ÜST MİNİ BAR (Kategoriye Girildiğinde Görünür) */
+    /* ÜST MİNİ BAR (Kategori ve Ürün Sayfalarında) */
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -53,29 +54,29 @@
       margin: 0 auto;
     }
     .back-btn {
-      background: rgba(212, 175, 55, 0.1);
-      color: #D4AF37;
-      border: 1px solid #D4AF37;
-      padding: 6px 14px;
+      background: #172621;
+      color: #d4af37;
+      border: 1px solid #172621;
+      padding: 8px 16px;
       border-radius: 20px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.85rem;
       transition: 0.2s;
     }
-    .back-btn:hover { background: #D4AF37; color: #000; }
+    .back-btn:hover { background: #d4af37; color: #172621; }
     .lang-picker-mini { display: flex; gap: 8px; }
     .lang-btn-mini {
-      background: #14201C;
-      color: #AAA;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      padding: 4px 10px;
+      background: #ffffff;
+      color: #172621;
+      border: 1px solid #172621;
+      padding: 5px 12px;
       border-radius: 12px;
       cursor: pointer;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
     }
-    .lang-btn-mini.active { background: #D4AF37; color: #000; font-weight: 800; }
+    .lang-btn-mini.active { background: #172621; color: #d4af37; border-color: #172621; }
 
     /* İÇERİK KONTEYNERİ */
     .container { max-width: 600px; margin: 0 auto; padding: 10px 20px; }
@@ -86,8 +87,9 @@
       padding: 40px 10px;
     }
     .welcome-title {
-      color: #D4AF37;
+      color: #172621;
       font-size: 1.2rem;
+      font-weight: 800;
       margin-bottom: 25px;
       letter-spacing: 1px;
     }
@@ -99,18 +101,18 @@
       margin: 0 auto;
     }
     .lang-btn-large {
-      background: #14201C;
-      color: #FFFFFF;
-      border: 2px solid #D4AF37;
+      background: #172621;
+      color: #ffffff;
+      border: 2px solid #d4af37;
       padding: 16px;
       border-radius: 14px;
       font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(23, 38, 33, 0.2);
       transition: transform 0.2s, background 0.2s;
     }
-    .lang-btn-large:active { transform: scale(0.97); background: #D4AF37; color: #000; }
+    .lang-btn-large:active { transform: scale(0.97); background: #d4af37; color: #172621; }
 
     /* 2. KATEGORİ KARTLARI SAYFASI */
     .categories-grid {
@@ -120,54 +122,54 @@
       margin-top: 15px;
     }
     .category-card {
-      background: linear-gradient(135deg, #14201C 0%, #0E1815 100%);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-left: 5px solid #D4AF37;
+      background: #ffffff;
+      border: 1px solid #e0d5c1;
+      border-left: 6px solid #172621;
       border-radius: 12px;
       padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       transition: transform 0.2s;
     }
     .category-card:active { transform: scale(0.98); }
-    .category-card-name { font-size: 1.2rem; font-weight: 800; color: #FFFFFF; letter-spacing: 1px; }
-    .category-card-arrow { color: #D4AF37; font-size: 1.4rem; font-weight: bold; }
+    .category-card-name { font-size: 1.2rem; font-weight: 800; color: #172621; letter-spacing: 1px; }
+    .category-card-arrow { color: #d4af37; font-size: 1.4rem; font-weight: bold; }
 
     /* 3. ÜRÜN LİSTESİ SAYFASI */
     .category-header-title {
-      color: #D4AF37;
+      color: #172621;
       font-size: 1.5rem;
       font-weight: 900;
       text-transform: uppercase;
       margin: 10px 0 20px;
-      border-bottom: 2px solid #D4AF37;
+      border-bottom: 3px solid #172621;
       padding-bottom: 8px;
     }
     .menu-item {
-      background: #14201C;
+      background: #ffffff;
       border-radius: 12px;
       padding: 16px;
       margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       gap: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border: 1px solid #e0d5c1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     .item-info { flex: 1; }
-    .item-name { font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
-    .item-desc { font-size: 0.85rem; color: #B0B8B5; line-height: 1.4; }
-    .item-price { font-size: 1.15rem; font-weight: 800; color: #D4AF37; white-space: nowrap; }
+    .item-name { font-size: 1.1rem; font-weight: 800; color: #172621; margin-bottom: 5px; }
+    .item-desc { font-size: 0.85rem; color: #555555; line-height: 1.4; font-weight: 500; }
+    .item-price { font-size: 1.2rem; font-weight: 900; color: #b8860b; white-space: nowrap; }
 
-    .status-msg { text-align: center; padding: 40px; color: #D4AF37; font-size: 1.1rem; }
+    .status-msg { text-align: center; padding: 40px; color: #172621; font-weight: 700; font-size: 1.1rem; }
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER / LOGO -->
   <header class="menu-header">
     <div class="logo-container">
       <h1 class="logo-title">BUN<span class="ampersand">&</span>FUN</h1>
@@ -175,7 +177,6 @@
     </div>
   </header>
 
-  <!-- ÜST BAR: GERİ DÖN VE HIZLI DİL SEÇİMİ (Kategoriler veya Ürünler Ekranında Çıkar) -->
   <div id="top-bar" class="top-bar hidden">
     <button id="back-btn" class="back-btn" onclick="goBack()">← Dili Değiştir</button>
     <div class="lang-picker-mini">
@@ -187,7 +188,6 @@
 
   <main class="container">
     
-    <!-- EKRAN 1: DİL SEÇİMİ -->
     <section id="screen-welcome" class="welcome-screen">
       <div class="welcome-title">Lütfen Dil Seçiniz / Select Language</div>
       <div class="lang-options-large">
@@ -197,28 +197,25 @@
       </div>
     </section>
 
-    <!-- EKRAN 2: KATEGORİ LİSTESİ -->
     <section id="screen-categories" class="hidden">
       <div id="categories-list" class="categories-grid"></div>
     </section>
 
-    <!-- EKRAN 3: ÜRÜN LİSTESİ -->
     <section id="screen-products" class="hidden">
       <h2 id="selected-category-title" class="category-header-title"></h2>
       <div id="products-list"></div>
     </section>
 
-    <!-- YÜKLENİYOR / HATA DURUMU -->
-    <div id="status-msg" class="status-msg hidden">Yükleniyor...</div>
+    <div id="status-msg" class="status-msg hidden">Menü Yükleniyor...</div>
 
   </main>
 
   <script>
-    // GOOGLE SHEETS CSV LİNKİNİ AŞAĞIDAKİ ALANA YAPIŞTIRIN:
-    const SHEET_CSV_URL = 'BURAYA_GOOGLE_SHEETS_CSV_LINKINI_YAPISTIRIN';
+    // GOOGLE SHEETS CSV LİNKİ EKLENDİ
+    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
 
     let currentLang = 'TR';
-    let currentView = 'welcome'; // 'welcome', 'categories', 'products'
+    let currentView = 'welcome';
     let activeCategory = '';
     let rawRows = [];
 
@@ -236,10 +233,6 @@
     }
 
     async function fetchMenu() {
-      if (!SHEET_CSV_URL || SHEET_CSV_URL.includes('BURAYA_GOOGLE')) {
-        showStatus("⚠️ Lütfen SHEET_CSV_URL alanına Google Tablo CSV linkinizi ekleyin.");
-        return;
-      }
       try {
         const response = await fetch(SHEET_CSV_URL);
         const text = await response.text();
@@ -252,7 +245,7 @@
           }
         }
       } catch (err) {
-        showStatus("❌ Veriler çekilemedi. Bağlantıyı kontrol edin.");
+        showStatus("❌ Veriler çekilemedi. Bağlantınızı kontrol edin.");
       }
     }
 
@@ -324,7 +317,7 @@
       return '← Kategoriler';
     }
 
-    /* RENDER (EKRANA BASMA) İŞLEMLERİ */
+    /* RENDER İŞLEMLERİ */
     function getProcessedData() {
       const categoriesMap = {};
 
@@ -398,7 +391,7 @@
       statusDiv.classList.remove('hidden');
     }
 
-    // Başlat
+    // Menüyü yükle
     fetchMenu();
   </script>
 </body>

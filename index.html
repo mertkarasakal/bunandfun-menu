@@ -4,60 +4,224 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUN & FUN - Dijital Menü</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background-color: #0f1715; color: #ffffff; padding-bottom: 50px; }
+    
+    /* ÖZEL TEMA RENKLERİ: KOYU YEŞİL & ALTIN SARISI */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0B1310; /* Derin Koyu Yeşil Zemin */
+      color: #FFFFFF;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
 
-    /* HEADER & LOGO */
-    .menu-header { text-align: center; padding: 30px 15px 15px; background: linear-gradient(180deg, #050a08 0%, #0f1715 100%); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-    .logo-title { font-size: 2.5rem; font-weight: 900; color: #ffffff; letter-spacing: 3px; line-height: 1; text-transform: uppercase; }
-    .logo-title .ampersand { color: #d4af37; }
-    .logo-tagline { display: block; font-size: 1rem; color: #d4af37; letter-spacing: 2px; margin-top: 6px; font-weight: 400; }
+    /* HEADER & LOGO ALANI */
+    .menu-header {
+      text-align: center;
+      padding: 35px 20px 20px;
+      background: linear-gradient(180deg, #040806 0%, #0B1310 100%);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+    }
+    .logo-title {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: 3px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .logo-title .ampersand { color: #D4AF37; }
+    .logo-tagline {
+      display: block;
+      font-size: 1rem;
+      color: #D4AF37;
+      letter-spacing: 2px;
+      margin-top: 6px;
+      font-weight: 400;
+      text-transform: lowercase;
+    }
 
-    /* DİL SEÇİMİ */
-    .lang-picker { display: flex; justify-content: center; gap: 10px; margin: 20px 0 10px; }
-    .lang-btn { background: #1a2622; color: #cccccc; border: 1px solid #d4af37; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
-    .lang-btn.active { background: #d4af37; color: #000000; }
+    /* DİL SEÇİM ÜST MİNİ BAR (Kategoriye Girildiğinde Görünür) */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .back-btn {
+      background: rgba(212, 175, 55, 0.1);
+      color: #D4AF37;
+      border: 1px solid #D4AF37;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+    .back-btn:hover { background: #D4AF37; color: #000; }
+    .lang-picker-mini { display: flex; gap: 8px; }
+    .lang-btn-mini {
+      background: #14201C;
+      color: #AAA;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .lang-btn-mini.active { background: #D4AF37; color: #000; font-weight: 800; }
 
-    /* MENÜ İÇERİK */
-    .container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
-    .category-title { color: #d4af37; font-size: 1.4rem; font-weight: 800; text-transform: uppercase; margin: 25px 0 12px; border-bottom: 2px solid #d4af37; padding-bottom: 5px; }
-    .menu-item { background: #16221f; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; gap: 15px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    /* İÇERİK KONTEYNERİ */
+    .container { max-width: 600px; margin: 0 auto; padding: 10px 20px; }
+
+    /* 1. AÇILIŞ DİL SEÇİM SAYFASI */
+    .welcome-screen {
+      text-align: center;
+      padding: 40px 10px;
+    }
+    .welcome-title {
+      color: #D4AF37;
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+    .lang-options-large {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .lang-btn-large {
+      background: #14201C;
+      color: #FFFFFF;
+      border: 2px solid #D4AF37;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .lang-btn-large:active { transform: scale(0.97); background: #D4AF37; color: #000; }
+
+    /* 2. KATEGORİ KARTLARI SAYFASI */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .category-card {
+      background: linear-gradient(135deg, #14201C 0%, #0E1815 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-left: 5px solid #D4AF37;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .category-card:active { transform: scale(0.98); }
+    .category-card-name { font-size: 1.2rem; font-weight: 800; color: #FFFFFF; letter-spacing: 1px; }
+    .category-card-arrow { color: #D4AF37; font-size: 1.4rem; font-weight: bold; }
+
+    /* 3. ÜRÜN LİSTESİ SAYFASI */
+    .category-header-title {
+      color: #D4AF37;
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 10px 0 20px;
+      border-bottom: 2px solid #D4AF37;
+      padding-bottom: 8px;
+    }
+    .menu-item {
+      background: #14201C;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
     .item-info { flex: 1; }
-    .item-name { font-size: 1.05rem; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
-    .item-desc { font-size: 0.85rem; color: #aaaaaa; line-height: 1.3; }
-    .item-price { font-size: 1.1rem; font-weight: 800; color: #d4af37; white-space: nowrap; }
-    .status-msg { text-align: center; padding: 30px; color: #d4af37; font-size: 1rem; }
+    .item-name { font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 5px; }
+    .item-desc { font-size: 0.85rem; color: #B0B8B5; line-height: 1.4; }
+    .item-price { font-size: 1.15rem; font-weight: 800; color: #D4AF37; white-space: nowrap; }
+
+    .status-msg { text-align: center; padding: 40px; color: #D4AF37; font-size: 1.1rem; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
+  <!-- HEADER / LOGO -->
   <header class="menu-header">
     <div class="logo-container">
       <h1 class="logo-title">BUN<span class="ampersand">&</span>FUN</h1>
       <span class="logo-tagline">fun in every bite</span>
     </div>
-
-    <div class="lang-picker">
-      <button class="lang-btn active" id="btn-TR" onclick="changeLanguage('TR')">TR</button>
-      <button class="lang-btn" id="btn-EN" onclick="changeLanguage('EN')">EN</button>
-      <button class="lang-btn" id="btn-RU" onclick="changeLanguage('RU')">RU</button>
-    </div>
   </header>
 
-  <main class="container" id="menu-container">
-    <div class="status-msg" id="status">Menü Yükleniyor...</div>
+  <!-- ÜST BAR: GERİ DÖN VE HIZLI DİL SEÇİMİ (Kategoriler veya Ürünler Ekranında Çıkar) -->
+  <div id="top-bar" class="top-bar hidden">
+    <button id="back-btn" class="back-btn" onclick="goBack()">← Dili Değiştir</button>
+    <div class="lang-picker-mini">
+      <button class="lang-btn-mini" id="mini-TR" onclick="setLanguage('TR')">TR</button>
+      <button class="lang-btn-mini" id="mini-EN" onclick="setLanguage('EN')">EN</button>
+      <button class="lang-btn-mini" id="mini-RU" onclick="setLanguage('RU')">RU</button>
+    </div>
+  </div>
+
+  <main class="container">
+    
+    <!-- EKRAN 1: DİL SEÇİMİ -->
+    <section id="screen-welcome" class="welcome-screen">
+      <div class="welcome-title">Lütfen Dil Seçiniz / Select Language</div>
+      <div class="lang-options-large">
+        <button class="lang-btn-large" onclick="selectInitialLanguage('TR')">Türkçe 🇹🇷</button>
+        <button class="lang-btn-large" onclick="selectInitialLanguage('EN')">English 🇬🇧</button>
+        <button class="lang-btn-large" onclick="selectInitialLanguage('RU')">Русский 🇷🇺</button>
+      </div>
+    </section>
+
+    <!-- EKRAN 2: KATEGORİ LİSTESİ -->
+    <section id="screen-categories" class="hidden">
+      <div id="categories-list" class="categories-grid"></div>
+    </section>
+
+    <!-- EKRAN 3: ÜRÜN LİSTESİ -->
+    <section id="screen-products" class="hidden">
+      <h2 id="selected-category-title" class="category-header-title"></h2>
+      <div id="products-list"></div>
+    </section>
+
+    <!-- YÜKLENİYOR / HATA DURUMU -->
+    <div id="status-msg" class="status-msg hidden">Yükleniyor...</div>
+
   </main>
 
   <script>
-    // GOOGLE SHEETS 'WEB'DE YAYINLA' CSV LİNKİNİ BURAYA YAPIŞTIRIN:
-    const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
+    // GOOGLE SHEETS CSV LİNKİNİ AŞAĞIDAKİ ALANA YAPIŞTIRIN:
+    const SHEET_CSV_URL = 'BURAYA_GOOGLE_SHEETS_CSV_LINKINI_YAPISTIRIN';
 
     let currentLang = 'TR';
+    let currentView = 'welcome'; // 'welcome', 'categories', 'products'
+    let activeCategory = '';
     let rawRows = [];
 
-    // CSV Parser
     function parseCSVLine(text) {
       let p = '', c = '', r = [];
       let q = false;
@@ -72,12 +236,10 @@
     }
 
     async function fetchMenu() {
-      const statusDiv = document.getElementById('status');
       if (!SHEET_CSV_URL || SHEET_CSV_URL.includes('BURAYA_GOOGLE')) {
-        statusDiv.innerHTML = "⚠️ Lütfen koddaki <b>SHEET_CSV_URL</b> alanına Google Tablo CSV linkinizi yapıştırın.";
+        showStatus("⚠️ Lütfen SHEET_CSV_URL alanına Google Tablo CSV linkinizi ekleyin.");
         return;
       }
-
       try {
         const response = await fetch(SHEET_CSV_URL);
         const text = await response.text();
@@ -89,33 +251,85 @@
             rawRows.push(parseCSVLine(lines[i]));
           }
         }
-        renderMenu();
       } catch (err) {
-        statusDiv.innerHTML = "❌ Veriler çekilemedi. Bağlantınızı veya Google Tablo 'Web'de Yayınla' iznini kontrol edin.";
+        showStatus("❌ Veriler çekilemedi. Bağlantıyı kontrol edin.");
       }
     }
 
-    function changeLanguage(lang) {
+    /* AKIŞ VE DİL YÖNETİMİ */
+    function selectInitialLanguage(lang) {
       currentLang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + lang).classList.add('active');
-      renderMenu();
+      updateMiniLangButtons();
+      showCategoriesScreen();
     }
 
-    function renderMenu() {
-      const container = document.getElementById('menu-container');
-      container.innerHTML = '';
-
-      if (rawRows.length === 0) {
-        container.innerHTML = '<div class="status-msg">Satışta ürün bulunamadı.</div>';
-        return;
+    function setLanguage(lang) {
+      currentLang = lang;
+      updateMiniLangButtons();
+      if (currentView === 'categories') {
+        renderCategories();
+      } else if (currentView === 'products') {
+        renderProducts(activeCategory);
       }
+    }
 
-      const categories = {};
+    function updateMiniLangButtons() {
+      document.querySelectorAll('.lang-btn-mini').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('mini-' + currentLang);
+      if(activeBtn) activeBtn.classList.add('active');
+    }
+
+    /* EKRAN GEÇİŞLERİ */
+    function showCategoriesScreen() {
+      currentView = 'categories';
+      document.getElementById('screen-welcome').classList.add('hidden');
+      document.getElementById('screen-products').classList.add('hidden');
+      document.getElementById('screen-categories').classList.remove('hidden');
+      document.getElementById('top-bar').classList.remove('hidden');
+      
+      document.getElementById('back-btn').innerText = getBackText();
+      renderCategories();
+    }
+
+    function showProductsScreen(categoryName) {
+      currentView = 'products';
+      activeCategory = categoryName;
+      document.getElementById('screen-categories').classList.add('hidden');
+      document.getElementById('screen-products').classList.remove('hidden');
+      
+      document.getElementById('back-btn').innerText = getBackCategoryText();
+      renderProducts(categoryName);
+    }
+
+    function goBack() {
+      if (currentView === 'products') {
+        showCategoriesScreen();
+      } else if (currentView === 'categories') {
+        currentView = 'welcome';
+        document.getElementById('screen-categories').classList.add('hidden');
+        document.getElementById('top-bar').classList.add('hidden');
+        document.getElementById('screen-welcome').classList.remove('hidden');
+      }
+    }
+
+    function getBackText() {
+      if(currentLang === 'EN') return '← Languages';
+      if(currentLang === 'RU') return '← Языки';
+      return '← Diller';
+    }
+
+    function getBackCategoryText() {
+      if(currentLang === 'EN') return '← Categories';
+      if(currentLang === 'RU') return '← Категории';
+      return '← Kategoriler';
+    }
+
+    /* RENDER (EKRANA BASMA) İŞLEMLERİ */
+    function getProcessedData() {
+      const categoriesMap = {};
 
       rawRows.forEach(row => {
         const status = row[4] || '';
-        // Satışta kontrolü
         if (status.toLowerCase().includes('satışta')) {
           let cat = row[0] || '';
           let name = row[1] || '';
@@ -132,32 +346,59 @@
             desc = row[11] || desc;
           }
 
-          if (!categories[cat]) categories[cat] = [];
-          categories[cat].push({ name, desc, price });
+          if (!categoriesMap[cat]) categoriesMap[cat] = [];
+          categoriesMap[cat].push({ name, desc, price });
         }
       });
-
-      for (const [category, items] of Object.entries(categories)) {
-        const catHeader = document.createElement('h2');
-        catHeader.className = 'category-title';
-        catHeader.innerText = category;
-        container.appendChild(catHeader);
-
-        items.forEach(item => {
-          const itemDiv = document.createElement('div');
-          itemDiv.className = 'menu-item';
-          itemDiv.innerHTML = `
-            <div class="item-info">
-              <div class="item-name">${item.name}</div>
-              <div class="item-desc">${item.desc}</div>
-            </div>
-            <div class="item-price">${item.price} ₺</div>
-          `;
-          container.appendChild(itemDiv);
-        });
-      }
+      return categoriesMap;
     }
 
+    function renderCategories() {
+      const container = document.getElementById('categories-list');
+      container.innerHTML = '';
+      const data = getProcessedData();
+
+      Object.keys(data).forEach(catName => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.onclick = () => showProductsScreen(catName);
+        card.innerHTML = `
+          <span class="category-card-name">${catName}</span>
+          <span class="category-card-arrow">→</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderProducts(catName) {
+      document.getElementById('selected-category-title').innerText = catName;
+      const container = document.getElementById('products-list');
+      container.innerHTML = '';
+      
+      const data = getProcessedData();
+      const items = data[catName] || [];
+
+      items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'menu-item';
+        itemDiv.innerHTML = `
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-desc">${item.desc}</div>
+          </div>
+          <div class="item-price">${item.price} ₺</div>
+        `;
+        container.appendChild(itemDiv);
+      });
+    }
+
+    function showStatus(msg) {
+      const statusDiv = document.getElementById('status-msg');
+      statusDiv.innerHTML = msg;
+      statusDiv.classList.remove('hidden');
+    }
+
+    // Başlat
     fetchMenu();
   </script>
 </body>

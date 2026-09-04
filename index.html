@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUN&FUN BURGER - Dijital Menü</title>
+    <title>BUN&FUN BURGER - Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,45 +31,70 @@
             padding-bottom: 40px;
         }
 
-        /* Header */
-        .header {
+        /* Splash Screen (Dil Seçim Ekranı) */
+        .splash-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
             text-align: center;
-            padding: 30px 20px 20px;
-            background: linear-gradient(180deg, #ffe8bf 0%, var(--bg-color) 100%);
-            border-bottom: 1px solid var(--card-border);
-            position: relative;
         }
 
-        .logo-box {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 10px;
+        .splash-logo {
+            font-size: 64px;
+            margin-bottom: 10px;
+        }
+
+        .splash-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .splash-title span { color: var(--accent); }
+
+        .splash-sub {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        .lang-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .lang-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
         }
 
-        .logo-box svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: 1px;
-        }
-
-        .header h1 span {
-            color: var(--accent);
-        }
-
-        .header p {
-            color: var(--text-sub);
-            font-size: 12px;
-            margin-top: 4px;
-            font-weight: 500;
+        .lang-btn:active {
+            transform: scale(0.96);
+            border-color: var(--accent);
+            background-color: var(--accent-bg);
         }
 
         /* Top Bar */
@@ -86,20 +111,15 @@
             z-index: 90;
         }
 
-        .back-btn {
+        .back-btn, .lang-change-btn {
             background: var(--accent-bg);
             color: var(--accent);
             border: 1px solid rgba(217, 119, 6, 0.3);
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .back-btn:active {
-            transform: scale(0.95);
         }
 
         .current-cat-title {
@@ -108,19 +128,23 @@
             color: var(--text-main);
         }
 
-        /* Container */
+        /* Container & Cards */
+        .header {
+            text-align: center;
+            padding: 25px 20px 15px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .header h1 { font-size: 22px; font-weight: 800; }
+        .header h1 span { color: var(--accent); }
+
         .container {
             padding: 20px;
             max-width: 500px;
             margin: 0 auto;
         }
 
-        /* Category Grid */
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
+        .category-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
         .category-card {
             background-color: var(--card-bg);
@@ -131,7 +155,6 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             position: relative;
             overflow: hidden;
@@ -140,54 +163,12 @@
         .category-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            left: 0; top: 0; bottom: 0;
             width: 5px;
             background-color: var(--accent);
-            border-radius: 4px 0 0 4px;
         }
 
-        .category-card:active {
-            transform: scale(0.98);
-            border-color: var(--accent);
-        }
-
-        .cat-info h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cat-count {
-            font-size: 12px;
-            color: var(--text-sub);
-            margin-top: 4px;
-            font-weight: 500;
-        }
-
-        .arrow-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: var(--accent-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        /* Item Cards */
-        .item-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .item-list { display: flex; flex-direction: column; gap: 12px; }
 
         .item-card {
             background-color: var(--card-bg);
@@ -200,55 +181,28 @@
             gap: 12px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            transition: border 0.2s;
-        }
-
-        .item-card:active {
-            border-color: var(--accent);
         }
 
         .item-img {
-            width: 65px;
-            height: 65px;
+            width: 65px; height: 65px;
             border-radius: 12px;
             object-fit: cover;
             background-color: #f3f4f6;
             flex-shrink: 0;
         }
 
-        .item-info {
-            flex: 1;
-        }
-
-        .item-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
+        .item-info { flex: 1; }
+        .item-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
         .item-desc {
-            font-size: 12px;
-            color: var(--text-sub);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-size: 12px; color: var(--text-sub);
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
-
         .item-price {
-            font-size: 15px;
-            font-weight: 800;
-            color: var(--accent);
-            white-space: nowrap;
-            background: var(--accent-bg);
-            padding: 8px 12px;
-            border-radius: 10px;
-            border: 1px solid rgba(217, 119, 6, 0.2);
+            font-size: 15px; font-weight: 800; color: var(--accent);
+            background: var(--accent-bg); padding: 8px 12px; border-radius: 10px;
         }
 
-        /* Modal / Popup */
+        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -265,173 +219,95 @@
             border-top: 3px solid var(--accent);
             border-radius: 24px 24px 0 0;
             padding: 25px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: slideUp 0.25s ease-out;
+            width: 100%; max-width: 500px;
+            max-height: 85vh; overflow-y: auto;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .modal-img {
-            width: 100%;
-            height: 200px;
-            border-radius: 16px;
-            object-fit: cover;
-            margin-bottom: 16px;
-            display: none;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-
-        .modal-desc {
-            font-size: 13px;
-            color: var(--text-sub);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .modal-price {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--accent);
-            margin-bottom: 20px;
-            display: inline-block;
-            background: var(--accent-bg);
-            padding: 6px 16px;
-            border-radius: 12px;
-        }
-
-        .close-btn {
-            width: 100%;
-            background-color: var(--accent);
-            color: #ffffff;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 30px 20px 10px;
-            color: var(--text-sub);
-            font-size: 12px;
-            border-top: 1px solid var(--card-border);
-            margin-top: 30px;
-        }
-
-        #loading {
-            text-align: center;
-            padding: 50px 20px;
-            color: var(--text-sub);
-            font-size: 14px;
-        }
+        .modal-img { width: 100%; height: 200px; border-radius: 16px; object-fit: cover; margin-bottom: 16px; display: none; }
+        .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+        .modal-desc { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.6; }
+        .modal-price { font-size: 22px; font-weight: 800; color: var(--accent); background: var(--accent-bg); padding: 6px 16px; border-radius: 12px; margin-bottom: 20px; display: inline-block; }
+        .close-btn { width: 100%; background-color: var(--accent); color: #fff; border: none; padding: 14px; border-radius: 14px; font-weight: 800; cursor: pointer; }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="header">
-        <div class="logo-box">
-            <!-- Vektörel Logo (Arka Plan #fff3db ile Tam Uyumlu) -->
-            <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="300" height="240" fill="#FFF3DB"/>
-                <!-- Çizgiler -->
-                <path d="M25 80 L55 60 M15 105 L45 105 M25 130 L55 145" stroke="#3d2314" stroke-width="8" stroke-linecap="round"/>
-                <path d="M275 80 L245 60 M285 105 L255 105 M275 130 L245 145" stroke="#3d2314" stroke-width="8" stroke-linecap="round"/>
-                <!-- Üst Ekmek -->
-                <path d="M90 90 C90 35, 210 35, 210 90 Z" fill="#f59e0b" stroke="#3d2314" stroke-width="7" stroke-linejoin="round"/>
-                <ellipse cx="135" cy="52" rx="6" ry="3" fill="#fff" opacity="0.6"/>
-                <!-- Gözler ve Gülümseme -->
-                <path d="M125 65 Q135 55 145 65" stroke="#3d2314" stroke-width="6" stroke-linecap="round" fill="none"/>
-                <path d="M155 65 Q165 55 175 65" stroke="#3d2314" stroke-width="6" stroke-linecap="round" fill="none"/>
-                <path d="M138 72 Q150 88 162 72 Z" fill="#3d2314"/>
-                <!-- Sos -->
-                <path d="M85 92 Q100 112 120 95 Q140 115 160 95 Q180 115 200 95 Q210 110 215 92 Z" fill="#ef4444" stroke="#3d2314" stroke-width="6" stroke-linejoin="round"/>
-                <!-- Köfte -->
-                <rect x="90" y="102" width="120" height="20" rx="10" fill="#78350f" stroke="#3d2314" stroke-width="6"/>
-                <!-- Alt Ekmek -->
-                <path d="M90 126 C90 145, 210 145, 210 126 Z" fill="#f59e0b" stroke="#3d2314" stroke-width="7" stroke-linejoin="round"/>
-                <!-- Yazı: BUN & FUN -->
-                <text x="150" y="200" text-anchor="middle" font-family="'Poppins', sans-serif" font-weight="900" font-size="34" fill="#d97706" stroke="#3d2314" stroke-width="3" paint-order="stroke fill" letter-spacing="1">BUN&amp;FUN</text>
-            </svg>
+    <!-- 1. Ekran: Dil Seçim Alanı -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-logo">🍔</div>
+        <div class="splash-title">BUN<span>&</span>FUN BURGER</div>
+        <div class="splash-sub">Please select your language / Lütfen dil seçiniz</div>
+        
+        <div class="lang-btn-group">
+            <button class="lang-btn" onclick="selectLanguage('tr')">🇹🇷 Türkçe</button>
+            <button class="lang-btn" onclick="selectLanguage('en')">🇬🇧 English</button>
+            <button class="lang-btn" onclick="selectLanguage('ru')">🇷🇺 Русский</button>
         </div>
+    </div>
+
+    <!-- Menü Ekranı -->
+    <div id="mainHeader" class="header hidden">
         <h1>BUN<span>&</span>FUN BURGER</h1>
-        <p>Gourmet Burger & More • Dijital Menü</p>
     </div>
 
     <!-- Üst Bar -->
     <div id="topBar" class="top-bar hidden">
-        <button class="back-btn" onclick="showCategories()">← Kategoriler</button>
+        <button id="backBtn" class="back-btn" onclick="showCategories()">← Kategoriler</button>
         <span class="current-cat-title" id="currentCatTitle"></span>
+        <button class="lang-change-btn" onclick="openLanguageSelect()">🌐 Dil / Lang</button>
     </div>
 
     <div class="container">
-        <div id="loading">Menü lezzetleri yükleniyor...</div>
-
-        <!-- 1. Ekran: Kategori Listesi -->
+        <div id="loading" class="hidden">Menü yükleniyor...</div>
         <div id="categoryView" class="category-grid hidden"></div>
-
-        <!-- 2. Ekran: Ürün Listesi -->
         <div id="productView" class="item-list hidden"></div>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>© BUN&FUN BURGER • Keyifli Yemekler Dileriz!</p>
-    </div>
-
-    <!-- Ürün Detay Modal (Popup) -->
+    <!-- Ürün Detay Popup -->
     <div id="productModal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-card">
             <img id="modalImg" class="modal-img" src="" alt="">
             <div class="modal-title" id="modalTitle"></div>
             <div class="modal-desc" id="modalDesc"></div>
             <div class="modal-price" id="modalPrice"></div>
-            <button class="close-btn" onclick="closeModalDirect()">Kapat</button>
+            <button class="close-btn" onclick="closeModalDirect()" id="closeBtnText">Kapat</button>
         </div>
     </div>
 
     <script>
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
 
+        let rawRows = [];
         let menuData = [];
+        let currentLang = 'tr';
+        let headers = [];
+
+        const uiText = {
+            tr: { back: "← Kategoriler", options: "Seçenek", close: "Kapat", loading: "Lezzetler yükleniyor..." },
+            en: { back: "← Categories", options: "Options", close: "Close", loading: "Loading menu..." },
+            ru: { back: "← Категории", options: "Варианты", close: "Закрыть", loading: "Загрузка меню..." }
+        };
 
         function getCategoryIcon(catName) {
-            const name = catName.toLowerCase();
-            if (name.includes('burger')) return '🍔';
-            if (name.includes('i̇çecek') || name.includes('icecek') || name.includes('drınk')) return '🥤';
-            if (name.includes('patates') || name.includes('atıştırmalık') || name.includes('snack')) return '🍟';
-            if (name.includes('tatlı') || name.includes('dessert')) return '🍰';
-            if (name.includes('sos')) return '🧀';
-            if (name.includes('menü') || name.includes('menu')) return '🍱';
+            const name = (catName || '').toLowerCase();
+            if (name.includes('burger') || name.includes('бургер')) return '🍔';
+            if (name.includes('i̇çecek') || name.includes('drink') || name.includes('напитки')) return '🥤';
+            if (name.includes('patates') || name.includes('snack') || name.includes('закуски')) return '🍟';
+            if (name.includes('tatlı') || name.includes('dessert') || name.includes('десерт')) return '🍰';
+            if (name.includes('sos') || name.includes('sauce') || name.includes('соус')) return '🧀';
             return '🍽️';
         }
 
         function parseCSV(text) {
             const lines = text.split('\n');
             const result = [];
-            for (let i = 1; i < lines.length; i++) {
+            for (let i = 0; i < lines.length; i++) {
                 if (!lines[i].trim()) continue;
                 const cells = lines[i].match(/(".*?"|[^",\r\n]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
                 if (cells) {
-                    const clean = cells.map(c => c.replace(/^"|"$/g, '').trim());
-                    result.push(clean);
+                    result.push(cells.map(c => c.replace(/^"|"$/g, '').trim()));
                 }
             }
             return result;
@@ -442,33 +318,73 @@
                 const response = await fetch(csvUrl);
                 const csvText = await response.text();
                 const rows = parseCSV(csvText);
-
-                menuData = [];
-                rows.forEach(row => {
-                    const category = row[0] || '';
-                    const name = row[1] || '';
-                    const desc = row[2] || '';
-                    const price = row[3] || '';
-                    const status = row[4] || 'Satışta';
-                    const image = row[5] || '';
-
-                    if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
-                        menuData.push({ category, name, desc, price, image });
-                    }
-                });
-
-                document.getElementById('loading').style.display = 'none';
-                showCategories();
-
+                
+                if (rows.length > 0) {
+                    headers = rows[0].map(h => h.toLowerCase());
+                    rawRows = rows.slice(1);
+                }
             } catch (err) {
-                document.getElementById('loading').innerHTML = 'Menü yüklenirken bir sorun oluştu.';
+                console.error("CSV yüklenirken hata oluştu", err);
             }
         }
 
-        function showCategories() {
-            document.getElementById('topBar').classList.add('hidden');
-            document.getElementById('productView').classList.add('hidden');
+        function processMenuForLang(lang) {
+            menuData = [];
             
+            // Sütun Indekslerinin Tespiti
+            let catIdx = 0, nameIdx = 1, descIdx = 2;
+            const priceIdx = 3, statusIdx = 4, imgIdx = 5;
+
+            if (lang === 'en') {
+                catIdx = headers.findIndex(h => h.includes('en') && h.includes('cat')) !== -1 ? headers.findIndex(h => h.includes('en') && h.includes('cat')) : 6;
+                nameIdx = headers.findIndex(h => h.includes('en') && h.includes('name')) !== -1 ? headers.findIndex(h => h.includes('en') && h.includes('name')) : 7;
+                descIdx = headers.findIndex(h => h.includes('en') && h.includes('desc')) !== -1 ? headers.findIndex(h => h.includes('en') && h.includes('desc')) : 8;
+            } else if (lang === 'ru') {
+                catIdx = headers.findIndex(h => h.includes('ru') && h.includes('cat')) !== -1 ? headers.findIndex(h => h.includes('ru') && h.includes('cat')) : 9;
+                nameIdx = headers.findIndex(h => h.includes('ru') && h.includes('name')) !== -1 ? headers.findIndex(h => h.includes('ru') && h.includes('name')) : 10;
+                descIdx = headers.findIndex(h => h.includes('ru') && h.includes('desc')) !== -1 ? headers.findIndex(h => h.includes('ru') && h.includes('desc')) : 11;
+            }
+
+            rawRows.forEach(row => {
+                const category = row[catIdx] || row[0] || '';
+                const name = row[nameIdx] || row[1] || '';
+                const desc = row[descIdx] || row[2] || '';
+                const price = row[priceIdx] || '';
+                const status = row[statusIdx] || 'Satışta';
+                const image = row[imgIdx] || '';
+
+                if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
+                    menuData.push({ category, name, desc, price, image });
+                }
+            });
+        }
+
+        async function selectLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('splashScreen').classList.add('hidden');
+            document.getElementById('mainHeader').classList.remove('hidden');
+            document.getElementById('topBar').classList.remove('hidden');
+            
+            document.getElementById('backBtn').textContent = uiText[lang].back;
+            document.getElementById('closeBtnText').textContent = uiText[lang].close;
+
+            if (rawRows.length === 0) {
+                document.getElementById('loading').textContent = uiText[lang].loading;
+                document.getElementById('loading').classList.remove('hidden');
+                await fetchMenu();
+                document.getElementById('loading').classList.add('hidden');
+            }
+
+            processMenuForLang(lang);
+            showCategories();
+        }
+
+        function openLanguageSelect() {
+            document.getElementById('splashScreen').classList.remove('hidden');
+        }
+
+        function showCategories() {
+            document.getElementById('productView').classList.add('hidden');
             const categoryView = document.getElementById('categoryView');
             categoryView.classList.remove('hidden');
             categoryView.innerHTML = '';
@@ -485,9 +401,9 @@
                 card.innerHTML = `
                     <div class="cat-info">
                         <h3><span>${icon}</span> ${cat}</h3>
-                        <div class="cat-count">${itemCount} Seçenek</div>
+                        <div style="font-size:12px; color:var(--text-sub); margin-top:4px;">${itemCount} ${uiText[currentLang].options}</div>
                     </div>
-                    <div class="arrow-badge">›</div>
+                    <div style="color:var(--accent); font-weight:bold;">›</div>
                 `;
                 categoryView.appendChild(card);
             });
@@ -495,9 +411,6 @@
 
         function showProducts(categoryName) {
             document.getElementById('categoryView').classList.add('hidden');
-            
-            const topBar = document.getElementById('topBar');
-            topBar.classList.remove('hidden');
             document.getElementById('currentCatTitle').textContent = categoryName;
 
             const productView = document.getElementById('productView');
@@ -527,7 +440,7 @@
 
         function openModal(item) {
             document.getElementById('modalTitle').textContent = item.name;
-            document.getElementById('modalDesc').textContent = item.desc || 'Bu ürün için detaylı açıklama bulunmamaktadır.';
+            document.getElementById('modalDesc').textContent = item.desc;
             document.getElementById('modalPrice').textContent = item.price + ' ₺';
             
             const modalImg = document.getElementById('modalImg');
@@ -542,15 +455,14 @@
         }
 
         function closeModal(e) {
-            if (e.target.id === 'productModal') {
-                document.getElementById('productModal').style.display = 'none';
-            }
+            if (e.target.id === 'productModal') document.getElementById('productModal').style.display = 'none';
         }
 
         function closeModalDirect() {
             document.getElementById('productModal').style.display = 'none';
         }
 
+        // Ön Yükleme Başlat
         fetchMenu();
     </script>
 </body>

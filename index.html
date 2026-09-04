@@ -4,10 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUN & FUN - Dijital Menü</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- POPPINS & ELYAZISI (ALEX BRUSH) FONTLARI -->
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
+    /* TÜM SİTE ARKA PLANI: KREM (#fff3db) */
     body {
       font-family: 'Poppins', sans-serif;
       background: #fff3db;
@@ -16,31 +20,35 @@
       padding-bottom: 40px;
     }
 
-    /* HEADER & LOGO ALANI */
+    /* HEADER ALANI VE LOGO DÜZENLEMESİ */
     .menu-header {
       text-align: center;
-      padding: 35px 20px 20px;
-      background: linear-gradient(180deg, #0e1815 0%, #172621 100%);
-      border-bottom: 2px solid #d4af37;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 25px 20px 10px;
+      background: #fff3db;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .logo-title {
-      font-size: 2.6rem;
-      font-weight: 900;
-      color: #FFFFFF;
-      letter-spacing: 3px;
-      line-height: 1;
-      text-transform: uppercase;
+
+    /* ORİJİNAL LOGO GÖRSELİ */
+    .brand-logo {
+      max-width: 180px; /* Telefon ekranlarına uygun şık boyut */
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 8px;
     }
-    .logo-title .ampersand { color: #d4af37; }
+
+    /* BRITTANY STİLİ EL YAZISI SLOGAN */
     .logo-tagline {
       display: block;
-      font-size: 1rem;
-      color: #d4af37;
-      letter-spacing: 2px;
-      margin-top: 6px;
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.2rem;
+      color: #172621;
       font-weight: 400;
       text-transform: lowercase;
+      letter-spacing: 1px;
+      line-height: 1;
     }
 
     /* ÜST MİNİ BAR */
@@ -83,7 +91,7 @@
     /* 1. AÇILIŞ DİL SEÇİM SAYFASI */
     .welcome-screen {
       text-align: center;
-      padding: 40px 10px;
+      padding: 20px 10px 30px;
     }
     .welcome-title {
       color: #172621;
@@ -108,7 +116,7 @@
       font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(23, 38, 33, 0.2);
+      box-shadow: 0 4px 12px rgba(23, 38, 33, 0.15);
       transition: transform 0.2s, background 0.2s;
     }
     .lang-btn-large:active { transform: scale(0.97); background: #d4af37; color: #172621; }
@@ -169,13 +177,14 @@
 </head>
 <body>
 
+  <!-- HEADER / LOGO VE SLOGAN -->
   <header class="menu-header">
-    <div class="logo-container">
-      <h1 class="logo-title">BUN<span class="ampersand">&</span>FUN</h1>
-      <span class="logo-tagline">fun in every bite</span>
-    </div>
+    <!-- Logoyu GitHub projenin klasörüne 'logo.png' adıyla yüklediğinde otomatik görünecektir -->
+    <img src="logo.png" alt="BUN & FUN Logo" class="brand-logo">
+    <span class="logo-tagline">fun in every bite</span>
   </header>
 
+  <!-- ÜST BAR: GERİ DÖN VE DİL SEÇİMİ -->
   <div id="top-bar" class="top-bar hidden">
     <button id="back-btn" class="back-btn" onclick="goBack()">← Dili Değiştir</button>
     <div class="lang-picker-mini">
@@ -187,6 +196,7 @@
 
   <main class="container">
     
+    <!-- EKRAN 1: DİL SEÇİMİ -->
     <section id="screen-welcome" class="welcome-screen">
       <div class="welcome-title">Lütfen Dil Seçiniz / Select Language</div>
       <div class="lang-options-large">
@@ -196,10 +206,12 @@
       </div>
     </section>
 
+    <!-- EKRAN 2: KATEGORİ LİSTESİ -->
     <section id="screen-categories" class="hidden">
       <div id="categories-list" class="categories-grid"></div>
     </section>
 
+    <!-- EKRAN 3: ÜRÜN LİSTESİ -->
     <section id="screen-products" class="hidden">
       <h2 id="selected-category-title" class="category-header-title"></h2>
       <div id="products-list"></div>
@@ -317,7 +329,6 @@
       return (row && row[index] !== undefined && row[index] !== null) ? row[index].trim() : '';
     }
 
-    /* GÜVENLİ VERİ OKUMA MANTIKLARI */
     function getProcessedData() {
       const categoriesMap = {};
 

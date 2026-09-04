@@ -46,14 +46,21 @@
             flex-grow: 1;
         }
 
+        /* Sayfa Yönetimi (Yalnızca aktif olan görünür) */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
         /* Dil Seçim Ekranı */
-        #language-screen {
+        #page-language {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 60vh;
-            text-align: center;
         }
         .lang-buttons {
             display: flex;
@@ -87,18 +94,8 @@
             transform: translateY(-2px);
         }
 
-        /* Menü Ekranları */
-        .screen {
-            display: none;
-        }
-        .screen.active {
-            display: block;
-        }
-
+        /* Geri Tuşu Alanı */
         .back-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 20px;
         }
         .back-btn {
@@ -169,7 +166,6 @@
             width: 80px;
             height: 80px;
             border-radius: 8px;
-            object-fit: cover;
             background-color: #eee;
             display: flex;
             align-items: center;
@@ -195,73 +191,41 @@
             color: #c73729;
         }
 
-        /* Ürün Detay Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 1000;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
+        /* Tekil Ürün Detay Sayfası */
+        .detail-box {
             background-color: #ffffff;
-            width: 100%;
-            max-width: 450px;
             border-radius: 16px;
             padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             text-align: center;
         }
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #eee;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .modal-img {
+        .detail-img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 15px;
             background-color: #eee;
             border: 1px dashed #ccc;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #aaa;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
-        .modal-title {
-            font-size: 20px;
+        .detail-title {
+            font-size: 22px;
             font-weight: 700;
             color: #222;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        .modal-desc {
-            font-size: 14px;
+        .detail-desc {
+            font-size: 15px;
             color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
-        .modal-price {
-            font-size: 20px;
+        .detail-price {
+            font-size: 24px;
             font-weight: 700;
             color: #c73729;
         }
@@ -276,61 +240,62 @@
 
     <div class="container">
         
-        <!-- 1. DİL SEÇİM EKRANI -->
-        <div id="language-screen" class="screen active">
+        <!-- SAYFA 1: DİL SEÇİMİ -->
+        <div id="page-language" class="page active">
             <div class="lang-buttons">
-                <button class="lang-btn" onclick="setLanguage('tr')">
+                <button class="lang-btn" onclick="selectLanguage('tr')">
                     <span class="flag">🇹🇷</span> Türkçe
                 </button>
-                <button class="lang-btn" onclick="setLanguage('en')">
+                <button class="lang-btn" onclick="selectLanguage('en')">
                     <span class="flag">🇬🇧</span> English
                 </button>
-                <button class="lang-btn" onclick="setLanguage('ru')">
+                <button class="lang-btn" onclick="selectLanguage('ru')">
                     <span class="flag">🇷🇺</span> Русский
                 </button>
             </div>
         </div>
 
-        <!-- 2. KATEGORİLER EKRANI -->
-        <div id="categories-screen" class="screen">
+        <!-- SAYFA 2: KATEGORİLER -->
+        <div id="page-categories" class="page">
             <div class="back-bar">
-                <button class="back-btn" onclick="goBackToLanguages()">← <span id="txt-change-lang">Dil Seçimi</span></button>
+                <button class="back-btn" onclick="goToPage('page-language')">← <span id="txt-back-lang">Dil Seçimi</span></button>
             </div>
-            <div class="section-title" id="txt-categories-title">Kategoriler</div>
+            <div class="section-title" id="txt-cat-title">Kategoriler</div>
             <div class="category-grid" id="category-container"></div>
         </div>
 
-        <!-- 3. ÜRÜN LİSTESİ EKRANI -->
-        <div id="products-screen" class="screen">
+        <!-- SAYFA 3: ÜRÜN LİSTESİ -->
+        <div id="page-products" class="page">
             <div class="back-bar">
-                <button class="back-btn" onclick="goBackToCategories()">← <span id="txt-back-cat">Kategoriler</span></button>
+                <button class="back-btn" onclick="goToPage('page-categories')">← <span id="txt-back-cat">Kategoriler</span></button>
             </div>
             <div class="section-title" id="product-section-title">Ürünler</div>
             <div class="product-list" id="product-container"></div>
         </div>
 
-    </div>
-
-    <!-- 4. ÜRÜN DETAY MODALI -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">×</button>
-            <div id="modal-img-container" style="width:100%; height:200px; background:#eee; border-radius:12px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; color:#888; font-size:13px; border:1px dashed #ccc;">
-                [ Ürün Görseli Yakında ]
+        <!-- SAYFA 4: TEKİL ÜRÜN DETAY SAYFASI -->
+        <div id="page-detail" class="page">
+            <div class="back-bar">
+                <button class="back-btn" onclick="goToPage('page-products')">← <span id="txt-back-prod">Ürünlere Dön</span></button>
             </div>
-            <h3 id="modal-title" class="modal-title">Ürün Adı</h3>
-            <p id="modal-desc" class="modal-desc">Ürün açıklaması burada yer alacak.</p>
-            <div id="modal-price" class="modal-price">00 TL</div>
+            <div class="detail-box">
+                <div class="detail-img">[ Ürün Görseli Yakında ]</div>
+                <h2 id="detail-title" class="detail-title">Ürün Adı</h2>
+                <p id="detail-desc" class="detail-desc">Açıklama</p>
+                <div id="detail-price" class="detail-price">0 TL</div>
+            </div>
         </div>
+
     </div>
 
     <script>
-        // Tablonuzdaki tüm kategoriler ve 3 dildeki içerikler tam olarak entegre edilmiştir:
+        // Google Sheets tablonuzdaki tüm kategori ve ürün verileri (3 dil)
         const menuData = {
             tr: {
-                categoriesTitle: "Kategoriler",
-                changeLang: "Dil Seçimi",
+                backLang: "Dil Seçimi",
                 backCat: "Kategoriler",
+                backProd: "Ürünlere Dön",
+                catTitle: "Kategoriler",
                 categories: [
                     {
                         name: "Burgerler",
@@ -368,9 +333,10 @@
                 ]
             },
             en: {
-                categoriesTitle: "Categories",
-                changeLang: "Language",
+                backLang: "Language",
                 backCat: "Categories",
+                backProd: "Back to Products",
+                catTitle: "Categories",
                 categories: [
                     {
                         name: "Burgers",
@@ -408,9 +374,10 @@
                 ]
             },
             ru: {
-                categoriesTitle: "Категории",
-                changeLang: "Язык",
+                backLang: "Язык",
                 backCat: "Категории",
+                backProd: "Назад к товарам",
+                catTitle: "Категории",
                 categories: [
                     {
                         name: "Бургеры",
@@ -451,16 +418,26 @@
 
         let currentLang = 'tr';
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('language-screen').classList.remove('active');
-            document.getElementById('categories-screen').classList.add('active');
-            
-            document.getElementById('txt-change-lang').innerText = menuData[lang].changeLang;
-            document.getElementById('txt-categories-title').innerText = menuData[lang].categoriesTitle;
-            document.getElementById('txt-back-cat').innerText = menuData[lang].backCat;
+        function goToPage(pageId) {
+            // Tüm sayfaları gizle
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Hedef sayfayı aç
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
 
+        function selectLanguage(lang) {
+            currentLang = lang;
+            
+            // Metinleri dile göre güncelle
+            document.getElementById('txt-back-lang').innerText = menuData[lang].backLang;
+            document.getElementById('txt-back-cat').innerText = menuData[lang].backCat;
+            document.getElementById('txt-back-prod').innerText = menuData[lang].backProd;
+            document.getElementById('txt-cat-title').innerText = menuData[lang].catTitle;
+
+            // Kategorileri listele ve Kategoriler sayfasına geç
             renderCategories();
+            goToPage('page-categories');
         }
 
         function renderCategories() {
@@ -476,11 +453,8 @@
             });
         }
 
-        function openCategory(index) {
-            document.getElementById('categories-screen').classList.remove('active');
-            document.getElementById('products-screen').classList.add('active');
-
-            const cat = menuData[currentLang].categories[index];
+        function openCategory(catIndex) {
+            const cat = menuData[currentLang].categories[catIndex];
             document.getElementById('product-section-title').innerText = cat.name;
 
             const container = document.getElementById('product-container');
@@ -489,7 +463,6 @@
             cat.products.forEach((prod) => {
                 const pCard = document.createElement('div');
                 pCard.className = 'product-card';
-                
                 pCard.innerHTML = `
                     <div class="product-thumb">Görsel Yok</div>
                     <div class="product-info">
@@ -497,31 +470,19 @@
                         <div class="product-price">${prod.price}</div>
                     </div>
                 `;
-                pCard.onclick = () => openProductModal(prod);
+                pCard.onclick = () => openProductDetail(prod);
                 container.appendChild(pCard);
             });
+
+            goToPage('page-products');
         }
 
-        function openProductModal(prod) {
-            const modal = document.getElementById('product-modal');
-            document.getElementById('modal-title').innerText = prod.name;
-            document.getElementById('modal-desc').innerText = prod.desc;
-            document.getElementById('modal-price').innerText = prod.price;
-            modal.classList.add('active');
-        }
+        function openProductDetail(prod) {
+            document.getElementById('detail-title').innerText = prod.name;
+            document.getElementById('detail-desc').innerText = prod.desc;
+            document.getElementById('detail-price').innerText = prod.price;
 
-        function closeModal() {
-            document.getElementById('product-modal').classList.remove('active');
-        }
-
-        function goBackToLanguages() {
-            document.getElementById('categories-screen').classList.remove('active');
-            document.getElementById('language-screen').classList.add('active');
-        }
-
-        function goBackToCategories() {
-            document.getElementById('products-screen').classList.remove('active');
-            document.getElementById('categories-screen').classList.add('active');
+            goToPage('page-detail');
         }
     </script>
 </body>

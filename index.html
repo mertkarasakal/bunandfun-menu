@@ -46,7 +46,7 @@
             flex-grow: 1;
         }
 
-        /* Sayfa Yönetimi (Yalnızca aktif sayfa görünür) */
+        /* Sayfa Yönetimi */
         .page {
             display: none;
         }
@@ -242,7 +242,7 @@
         <div class="slogan">fun in every bite</div>
     </header>
 
-    <div class="container">
+    <div class="container" id="main-container">
         
         <!-- SAYFA 1: DİL SEÇİMİ -->
         <div id="page-language" class="page active">
@@ -598,12 +598,21 @@
 
         function goToPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
             window.scrollTo(0, 0);
         }
 
         function selectLanguage(lang) {
             currentLang = lang;
+            
+            // Dil seçim ekranını tamamen DOM'dan uçuruyoruz (ekranda asla kalmaz)
+            const langPage = document.getElementById('page-language');
+            if (langPage) {
+                langPage.remove();
+            }
             
             document.getElementById('txt-back-cat').innerText = menuData[lang].backCat;
             document.getElementById('txt-back-prod').innerText = menuData[lang].backProd;

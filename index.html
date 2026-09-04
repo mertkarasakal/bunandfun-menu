@@ -179,32 +179,42 @@
     </div>
 
     <script>
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pubhtml';
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSdNmjIQYSsH6Wt1yluSA7KvQhyUhJCpPXB8PKPH2sLF-fxe-vfhGCdw0KVzmWVquyIvcg8iIE_KZa9/pub?gid=0&single=true&output=csv';
+
+        // CSV Ayrıştırma Fonksiyonu
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const result = [];
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                // Virgülle ayırma (tırnak içindeki virgülleri korur)
+                const cells = lines[i].match(/(".*?"|[^",\r\n]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
+                if (cells) {
+                    const clean = cells.map(c => c.replace(/^"|"$/g, '').trim());
+                    result.push(clean);
+                }
+            }
+            return result;
+        }
 
         async function fetchMenu() {
             try {
-                const response = await fetch(sheetUrl);
-                const htmlText = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                const rows = Array.from(doc.querySelectorAll('table tbody tr'));
+                const response = await fetch(csvUrl);
+                const csvText = await response.text();
+                const rows = parseCSV(csvText);
 
                 const items = [];
-                // İlk satır başlık olduğu için 1. indeksten başlıyoruz
-                for (let i = 1; i < rows.length; i++) {
-                    const cells = rows[i].querySelectorAll('td');
-                    if (cells.length >= 4) {
-                        const category = cells[0]?.textContent?.trim() || '';
-                        const name = cells[1]?.textContent?.trim() || '';
-                        const desc = cells[2]?.textContent?.trim() || '';
-                        const price = cells[3]?.textContent?.trim() || '';
-                        const status = cells[4]?.textContent?.trim() || 'Satışta';
+                rows.forEach(row => {
+                    const category = row[0] || '';
+                    const name = row[1] || '';
+                    const desc = row[2] || '';
+                    const price = row[3] || '';
+                    const status = row[4] || 'Satışta';
 
-                        if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
-                            items.push({ category, name, desc, price });
-                        }
+                    if (name && status.toLowerCase() !== 'tükendi' && status.toLowerCase() !== 'pasif') {
+                        items.push({ category, name, desc, price });
                     }
-                }
+                });
 
                 renderMenu(items);
             } catch (err) {
@@ -214,6 +224,12 @@
 
         function renderMenu(items) {
             document.getElementById('loading').style.display = 'none';
+            
+            if (items.length === 0) {
+                document.getElementById('menuContainer').innerHTML = '<div style="text-align:center; color:#9ea3b0; padding:20px;">Henüz aktif ürün bulunmuyor.</div>';
+                return;
+            }
+
             const categories = [...new Set(items.map(item => item.category))].filter(Boolean);
             
             const navContainer = document.getElementById('categoryNav');

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUN & FUN - Dijital Menü</title>
+    <!-- Brittany / El yazısı fontu ve Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -29,7 +30,7 @@
             align-items: center;
             gap: 8px;
         }
-        /* Header Logo (Instagram PP) */
+        /* Header Logo Tasarımı */
         .header-logo {
             width: 75px;
             height: 75px;
@@ -252,13 +253,15 @@
 <body>
 
     <header>
-        <img src="https://instagram.fada1-8.fna.fbcdn.net/v/t51.2885-19/448842167_345155118507850_7274041778917822941_n.jpg?_nc_ht=instagram.fada1-8.fna.fbcdn.net&_nc_cat=103&_nc_ohc=placeholder&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfD...&oe=65E..." alt="Bun & Fun Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/75?text=Logo'">
+        <!-- Logo dosyanızın adını buraya yazdık (logo.jpg veya logo.png) -->
+        <img src="logo.jpg" alt="Bun & Fun Logo" class="header-logo">
         <div class="header-brand">BUN & FUN BURGER</div>
         <div class="slogan">fun in every bite</div>
     </header>
 
     <div class="container" id="main-container">
         
+        <!-- SAYFA 1: DİL SEÇİMİ -->
         <div id="page-language" class="page active">
             <div class="lang-buttons">
                 <button class="lang-btn" onclick="selectLanguage('tr')">
@@ -273,11 +276,13 @@
             </div>
         </div>
 
+        <!-- SAYFA 2: KATEGORİLER -->
         <div id="page-categories" class="page">
             <div class="section-title" id="txt-cat-title">Kategoriler</div>
             <div id="category-container" class="category-grid"></div>
         </div>
 
+        <!-- SAYFA 3: ÜRÜN LİSTESİ -->
         <div id="page-products" class="page">
             <div class="back-bar">
                 <button class="back-btn" onclick="goToPage('page-categories')">← <span id="txt-back-cat">Kategoriler</span></button>
@@ -286,6 +291,7 @@
             <div id="product-container" class="product-list"></div>
         </div>
 
+        <!-- SAYFA 4: TEKİL ÜRÜN DETAY -->
         <div id="page-detail" class="page">
             <div class="back-bar">
                 <button class="back-btn" onclick="backToProducts()">← <span id="txt-back-prod">Ürünlere Dön</span></button>
@@ -619,7 +625,6 @@
         function selectLanguage(lang) {
             currentLang = lang;
             
-            // Dil seçim ekranını tamamen DOM'dan kaldırıyoruz
             const langPage = document.getElementById('page-language');
             if (langPage) {
                 langPage.remove();

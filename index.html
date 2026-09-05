@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUN & FUN - Dijital Menü</title>
-    <!-- Brittany / El yazısı fontu ve Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -22,21 +21,36 @@
         }
         header {
             background-color: #f5f5f0;
-            padding: 25px 15px;
+            padding: 20px 15px;
             text-align: center;
             border-bottom: 1px solid #e0e0dc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        /* Header Logo (Instagram PP) */
+        .header-logo {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #c73729;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            background-color: #fff;
         }
         .header-brand {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #c73729;
             letter-spacing: 1px;
-            margin-bottom: 2px;
+            margin-bottom: 0px;
         }
         .slogan {
             font-family: 'Great Vibes', cursive;
-            font-size: 26px;
+            font-size: 24px;
             color: #ee8e00;
+            margin-top: -4px;
         }
         .container {
             max-width: 600px;
@@ -238,13 +252,13 @@
 <body>
 
     <header>
+        <img src="https://instagram.fada1-8.fna.fbcdn.net/v/t51.2885-19/448842167_345155118507850_7274041778917822941_n.jpg?_nc_ht=instagram.fada1-8.fna.fbcdn.net&_nc_cat=103&_nc_ohc=placeholder&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_AfD...&oe=65E..." alt="Bun & Fun Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/75?text=Logo'">
         <div class="header-brand">BUN & FUN BURGER</div>
         <div class="slogan">fun in every bite</div>
     </header>
 
     <div class="container" id="main-container">
         
-        <!-- SAYFA 1: DİL SEÇİMİ -->
         <div id="page-language" class="page active">
             <div class="lang-buttons">
                 <button class="lang-btn" onclick="selectLanguage('tr')">
@@ -259,13 +273,11 @@
             </div>
         </div>
 
-        <!-- SAYFA 2: KATEGORİLER -->
         <div id="page-categories" class="page">
             <div class="section-title" id="txt-cat-title">Kategoriler</div>
             <div id="category-container" class="category-grid"></div>
         </div>
 
-        <!-- SAYFA 3: ÜRÜN LİSTESİ -->
         <div id="page-products" class="page">
             <div class="back-bar">
                 <button class="back-btn" onclick="goToPage('page-categories')">← <span id="txt-back-cat">Kategoriler</span></button>
@@ -274,7 +286,6 @@
             <div id="product-container" class="product-list"></div>
         </div>
 
-        <!-- SAYFA 4: TEKİL ÜRÜN DETAY -->
         <div id="page-detail" class="page">
             <div class="back-bar">
                 <button class="back-btn" onclick="backToProducts()">← <span id="txt-back-prod">Ürünlere Dön</span></button>
@@ -559,7 +570,7 @@
                             { name: "Меню \"Влажный гамбургер из 2 штук\"", desc: "2 гамбургера, облитых водой + картошка фри + напиток", price: "510 TL" },
                             { name: "Меню хот-догов из 2 штук", desc: "2 хот-дога + картошка фри + напиток", price: "510 TL" },
                             { name: "Меню тостов «Супер Айвалык»", desc: "Айвалык Тост + картофель фри + напиток", price: "570 TL" },
-                            { name: "Меню Кумру", desc: "Кумру (турецкий сэндвич) + Картофель фри + Напиток", price: "590 TL" }
+                            { name: "Меню Кумру", desc: "Kумру (турецкий сэндвич) + Картофель фри + Напиток", price: "590 TL" }
                         ]
                     },
                     {
@@ -608,7 +619,7 @@
         function selectLanguage(lang) {
             currentLang = lang;
             
-            // Dil seçim ekranını tamamen DOM'dan uçuruyoruz (ekranda asla kalmaz)
+            // Dil seçim ekranını tamamen DOM'dan kaldırıyoruz
             const langPage = document.getElementById('page-language');
             if (langPage) {
                 langPage.remove();

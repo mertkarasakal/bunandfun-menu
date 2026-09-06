@@ -469,3 +469,101 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUN & FUN BURGER</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcf9f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .header-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Logo Stili */
+        .header-logo {
+            width: 140px; /* Logonun boyutunu buradan ayarlayabilirsin */
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            object-fit: contain;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #b33928;
+            font-size: 2.5rem;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            color: #d38b24;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .lang-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .btn {
+            display: block;
+            background-color: #ffffff;
+            color: #b33928;
+            border: 2px solid #b33928;
+            padding: 14px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .btn:hover {
+            background-color: #b33928;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(179, 57, 40, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="bunfunlogo.jpg" alt="Bun & Fun Logo" class="header-logo">
+        
+        <h1>BUN & FUN BURGER</h1>
+        <p class="tagline">fun in every bite</p>
+    </div>
+
+    <div class="lang-buttons">
+        <a href="tr/index.html" class="btn">TR Türkçe</a>
+        <a href="en/index.html" class="btn">GB English</a>
+        <a href="ru/index.html" class="btn">RU Русский</a>
+    </div>
+
+</body>
+</html>

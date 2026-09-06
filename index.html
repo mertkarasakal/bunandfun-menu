@@ -44,13 +44,14 @@
 <body>
 
     <header>
-        <img src="bunfunlogo.jpg" alt="Bun & Fun Logo" class="header-logo">
+        <!-- Logo doğrudan Base64 formatıyla eklendi -->
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=" alt="Bun & Fun Logo" class="header-logo">
         <div class="header-brand">BUN & FUN BURGER</div>
         <div class="slogan">fun in every bite</div>
     </header>
 
     <div class="container" id="main-container">
-        <!-- SAYFA 1: DİL SEÇİMİ (DOM'dan tamamen silinecek) -->
+        <!-- SAYFA 1: DİL SEÇİMİ -->
         <div id="page-language" class="page active">
             <div class="lang-buttons">
                 <button class="lang-btn" onclick="selectLanguage('tr')"><span class="flag">🇹🇷</span> Türkçe</button>
